@@ -44,3 +44,14 @@ get_mapping_fund_names_multi_asset_type = create_fund_name_mapping_getter('multi
 
 get_fund_codes_variable_type = create_fund_code_getter('variable')
 get_mapping_fund_names_variable_type = create_fund_name_mapping_getter('variable')
+
+
+def get_mapping_by_fund_type(keyword_type: str, date_ref: Optional[str] = None, option_main: bool = True) -> Dict[str, str]:
+    mapping = {
+        '주식형': get_mapping_fund_names_equity_type,
+        '주식혼합': get_mapping_fund_names_equity_mixed_type,
+        '채권혼합': get_mapping_fund_names_bond_mixed_type,
+        '혼합자산': get_mapping_fund_names_multi_asset_type,
+        '변액': get_mapping_fund_names_variable_type
+    }
+    return mapping.get(keyword_type)(date_ref=date_ref, option_main=option_main)
