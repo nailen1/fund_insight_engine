@@ -5,9 +5,11 @@ A Python package providing utility functions for fund code management and analys
 ## Features
 
 - Fund code retrieval and validation
-- Fund data analysis utilities
-- Integration with AWS S3 for data storage
-- Financial dataset preprocessing capabilities
+  - Support for various fund types (equity, mixed, bond, etc.)
+  - Fund class categorization (mother fund, general, class fund)
+  - Division-based fund code management
+- Integration with financial dataset preprocessing
+- AWS S3 integration for data storage
 
 ## Installation
 
@@ -28,13 +30,25 @@ pip install fund-insight-engine
 ```python
 from fund_insight_engine import fund_codes_retriever
 
-# Example code will be added as features are implemented
+# Get fund codes by type
+equity_funds = fund_codes_retriever.get_fund_codes_equity_type()
+mixed_funds = fund_codes_retriever.get_fund_codes_equity_mixed_type()
+
+# Get fund codes by class
+mother_funds = fund_codes_retriever.get_fund_codes_mother()
+class_funds = fund_codes_retriever.get_fund_codes_class()
+
+# Get fund names mapping
+fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 ```
 
 ## Version History
 
 ### 0.1.0 (Initial Release)
 - Basic fund code management functionality
+  - Fund type-based retrieval
+  - Fund class-based retrieval
+  - Division-based management
 - AWS S3 integration
 - Financial dataset preprocessing integration
 
