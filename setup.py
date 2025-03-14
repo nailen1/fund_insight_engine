@@ -9,7 +9,7 @@ setup(
         "aws_s3_controller>=0.7.5",
     ],
     author="Juneyoung Park",
-    description="A collection of utility functions for fund code management and analysis",
+    description="A Python package providing utility functions for fund code management and analysis",
     long_description=open("README.md", encoding="utf-8").read() if open("README.md", encoding="utf-8") else "",
     long_description_content_type="text/markdown",
     python_requires=">=3.7",
