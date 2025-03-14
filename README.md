@@ -44,6 +44,14 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.1.1
+- Enhanced fund code utilities
+  - Added mapping functions by fund type, class, and division
+  - Added FUND_CLASSES and FUND_TYPES constants
+  - Added pseudo_consts.py for future use
+  - Fixed date_ref parameter handling in division mapping functions
+  - Improved code organization and type hints
+
 ### 0.1.0 (Initial Release)
 - Basic fund code management functionality
   - Fund type-based retrieval

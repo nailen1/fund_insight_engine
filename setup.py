@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="fund_insight_engine",
-    version="0.1.0",
+    version="0.1.1",
     packages=find_packages(),
     install_requires=[
         "financial_dataset_preprocessor>=0.2.9",
