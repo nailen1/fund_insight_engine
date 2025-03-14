@@ -44,7 +44,11 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.1.2
+- Added `get_mapping_fund_names` to top-level imports for easier access
+
 ### 0.1.1
+
 - Enhanced fund code utilities
   - Added mapping functions by fund type, class, and division
   - Added FUND_CLASSES and FUND_TYPES constants
@@ -53,6 +57,7 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
   - Improved code organization and type hints
 
 ### 0.1.0 (Initial Release)
+
 - Basic fund code management functionality
   - Fund type-based retrieval
   - Fund class-based retrieval
@@ -66,4 +71,12 @@ This project is licensed under the MIT License.
 
 ## Author
 
-Juneyoung Park (juneyoungpaak@gmail.com)
+**June Young Park**
+AI Management Development Team Lead & Quant Strategist at LIFE Asset Management
+
+LIFE Asset Management is a hedge fund management firm that integrates value investing and engagement strategies with quantitative approaches and financial technology, headquartered in Seoul, South Korea.
+
+## Contact
+
+- Email: juneyoungpaak@gmail.com
+- Location: TWO IFC, Yeouido, Seoul
