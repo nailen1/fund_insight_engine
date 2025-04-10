@@ -44,6 +44,13 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.1.3
+- Added MongoDB integration
+  - Added `mongodb_retriever` module for MongoDB data access
+  - Added fund name mapping from MongoDB data source
+  - Added `menu2205_retriever` module for specific fund data retrieval
+  - Added dependency on `mongodb_controller` and `shining_pebbles` packages
+
 ### 0.1.2
 - Added `get_mapping_fund_names` to top-level imports for easier access
 

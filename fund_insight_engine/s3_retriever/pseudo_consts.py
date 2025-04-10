@@ -19,4 +19,4 @@ MAPPING_FUNDS_BOND_MIXED = get_mapping_by_fund_type('채권혼합')
 MAPPING_FUNDS_MULTI_ASSET = get_mapping_by_fund_type('혼합자산')
 MAPPING_FUNDS_VARIABLE = get_mapping_by_fund_type('변액')
 
-MAPPUNG_FUNDS = get_mapping_fund_names()
+MAPPING_FUNDS = get_mapping_fund_names()

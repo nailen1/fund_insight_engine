@@ -2,11 +2,13 @@ from setuptools import setup, find_packages
 
 setup(
     name="fund_insight_engine",
-    version="0.1.2",
+    version="0.1.3",
     packages=find_packages(),
     install_requires=[
         "financial_dataset_preprocessor>=0.2.9",
         "aws_s3_controller>=0.7.5",
+        "mongodb_controller>=0.2.1",
+        "shining_pebbles>=0.1.0",
     ],
     author="Juneyoung Park",
     description="A Python package providing utility functions for fund code management and analysis",
