@@ -44,6 +44,11 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.2.6 (2025-04-19)
+- requirements.txt is now automatically reflected in setup.py's install_requires (single-source dependency management)
+- Expanded transform_data_to_df with new options and flexibility
+- Various module enhancements and bug fixes
+
 ### 0.1.3
 - Added MongoDB integration
   - Added `mongodb_retriever` module for MongoDB data access

@@ -2,13 +2,12 @@ from setuptools import setup, find_packages
 
 setup(
     name="fund_insight_engine",
-    version="0.1.3",
+    version="0.2.6",
     packages=find_packages(),
+    # requirements.txt의 내용을 install_requires로 자동 반영
     install_requires=[
-        "financial_dataset_preprocessor>=0.2.9",
-        "aws_s3_controller>=0.7.5",
-        "mongodb_controller>=0.2.1",
-        "shining_pebbles>=0.1.0",
+        req.strip() for req in open("requirements.txt", encoding="utf-8")
+        if req.strip() and not req.strip().startswith("#")
     ],
     author="Juneyoung Park",
     description="A Python package providing utility functions for fund code management and analysis",

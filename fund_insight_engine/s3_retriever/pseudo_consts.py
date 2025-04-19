@@ -1,4 +1,3 @@
-from financial_dataset_preprocessor import get_mapping_fund_names
 from .divisions import get_mapping_by_division
 from .fund_class import get_mapping_by_fund_class
 from .fund_types import get_mapping_by_fund_type
@@ -18,5 +17,3 @@ MAPPING_FUNDS_EQUITY_MIXED = get_mapping_by_fund_type('주식혼합')
 MAPPING_FUNDS_BOND_MIXED = get_mapping_by_fund_type('채권혼합')
 MAPPING_FUNDS_MULTI_ASSET = get_mapping_by_fund_type('혼합자산')
 MAPPING_FUNDS_VARIABLE = get_mapping_by_fund_type('변액')
-
-MAPPING_FUNDS = get_mapping_fund_names()

@@ -1,3 +1,4 @@
-from .mapping import get_mapping_fund_names_mongodb
+from .mappings import get_mapping_fund_names_mongodb, get_mapping_fund_inception_dates_mongodb
 
-MAPPING_FUNDS = get_mapping_fund_names_mongodb()
+MAPPING_FUND_NAMES = get_mapping_fund_names_mongodb()
+MAPPING_INCEPTION_DATES = get_mapping_fund_inception_dates_mongodb()
