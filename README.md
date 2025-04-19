@@ -44,6 +44,10 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.2.7 (2025-04-19)
+- Added `get_mapping_fund_names` to top-level imports for easier access
+- Improved method accessibility for common mapping functions
+
 ### 0.2.6 (2025-04-19)
 - requirements.txt is now automatically reflected in setup.py's install_requires (single-source dependency management)
 - Expanded transform_data_to_df with new options and flexibility
