@@ -21,4 +21,3 @@ def get_fund_codes_division_01(date_ref=None):
 
 def get_fund_codes_division_02(date_ref=None):
     return list(get_mapping_fund_names_division_02(date_ref=date_ref).keys())
-    

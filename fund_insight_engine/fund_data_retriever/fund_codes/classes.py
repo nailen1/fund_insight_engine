@@ -1,16 +1,15 @@
 from fund_insight_engine.fund_data_retriever.menu_data import fetch_menu2210
 from fund_insight_engine.fund_data_retriever.fund_codes.classes_consts import (
-    KEYS_FOR_CLASS, 
-    KEY_FOR_CLASS_CATEGORY, 
-    KEY_FOR_FUND_CODE_IN_MENU2110, 
-    KEY_FOR_FUND_NAME_IN_MENU2110
+    VALUES_FOR_CLASS, 
+    KEY_FOR_CLASS, 
 )
+from .menu2110_consts import KEY_FOR_FUND_CODE_IN_MENU2110
 from canonical_transformer import get_mapping_of_column_pairs
 
 def get_dfs_funds_by_class(date_ref=None):
     df = fetch_menu2210(date_ref=date_ref)
-    df_code_class = df[[KEY_FOR_FUND_CODE_IN_MENU2110, KEY_FOR_CLASS_CATEGORY]]
-    dfs = dict(tuple(df_code_class.groupby(KEY_FOR_CLASS_CATEGORY)))
+    df_code_class = df[[KEY_FOR_FUND_CODE_IN_MENU2110, KEY_FOR_CLASS]]
+    dfs = dict(tuple(df_code_class.groupby(KEY_FOR_CLASS)))
     return dfs
 
 def get_df_funds_by_class(key_for_class, date_ref=None):
@@ -48,7 +47,7 @@ def get_fund_codes_nonclassified(date_ref=None):
 
 def get_df_funds_main(date_ref=None):
     df = fetch_menu2210(date_ref=date_ref)
-    df = df[df[KEY_FOR_CLASS_CATEGORY]!='클래스펀드']
+    df = df[df[KEY_FOR_CLASS]!='클래스펀드']
     return df
 
 def get_mapping_fund_names_main(date_ref=None):

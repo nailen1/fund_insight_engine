@@ -44,6 +44,16 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.3.2 (2025-04-24)
+- Added portfolio retrieval functionality with MongoDB integration
+- Implemented Portfolio class for easy fund portfolio management
+- Enhanced data fetching capabilities for portfolio analysis
+
+### 0.3.1 (2025-04-24)
+- Added fund type classification functions for retrieving fund codes by investment type
+- Improved code organization with dedicated constants modules
+- Refactored class-based fund code functions for better consistency
+
 ### 0.3.0 (2025-04-24)
 - Fixed critical bug in `get_df_funds_main` function that incorrectly filtered class funds
 - Improved stability and reliability of fund classification functions
