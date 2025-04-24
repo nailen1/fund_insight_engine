@@ -44,6 +44,11 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.3.0 (2025-04-24)
+- Fixed critical bug in `get_df_funds_main` function that incorrectly filtered class funds
+- Improved stability and reliability of fund classification functions
+- Major version bump for API stability
+
 ### 0.2.9 (2025-04-24)
 - Restructured fund code classification into dedicated submodules
 - Added division-based fund code retrieval functions

@@ -48,7 +48,7 @@ def get_fund_codes_nonclassified(date_ref=None):
 
 def get_df_funds_main(date_ref=None):
     df = fetch_menu2210(date_ref=date_ref)
-    df = df[~df[KEY_FOR_CLASS_CATEGORY]=='클래스펀드']
+    df = df[df[KEY_FOR_CLASS_CATEGORY]!='클래스펀드']
     return df
 
 def get_mapping_fund_names_main(date_ref=None):
