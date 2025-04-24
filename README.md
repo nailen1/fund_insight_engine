@@ -44,6 +44,11 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.2.8 (2025-04-24)
+- Added new `fund_data_retriever` module with fund code classification functions
+- Enhanced MongoDB utilities with snapshot data retrieval functions
+- Added fund code application utilities for better fund classification
+
 ### 0.2.7 (2025-04-19)
 - Added `get_mapping_fund_names` to top-level imports for easier access
 - Improved method accessibility for common mapping functions
