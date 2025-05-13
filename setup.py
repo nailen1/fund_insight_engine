@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="fund_insight_engine",
-    version="0.3.3",
+    version="0.3.4",
     packages=find_packages(),
     # requirements.txt의 내용을 install_requires로 자동 반영
     install_requires=[

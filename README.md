@@ -44,6 +44,11 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.3.4 (2025-05-13)
+- Added practical unit conversion for AUM data (KRW trillion, USD billion)
+- Enhanced firm_aum module with get_firm_aum_since_inception function
+- Improved data presentation for financial reporting
+
 ### 0.3.3 (2025-05-13)
 - Added firm_aum module for company AUM time series analysis
 - Implemented currency conversion features (KRW to USD)

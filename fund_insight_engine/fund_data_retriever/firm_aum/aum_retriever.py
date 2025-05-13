@@ -57,3 +57,11 @@ def get_timeseries_aum_in_usd(end_date, start_date=None):
     timeseries_aum_in_usd = timeseries_aum.join(df_currency, how='left')
     timeseries_aum_in_usd['aum_in_usd'] = timeseries_aum_in_usd['aum'] / timeseries_aum_in_usd['usdkrw']
     return timeseries_aum_in_usd
+
+def get_firm_aum_since_inception(end_date, start_date=None, option_unit=True):
+    timeseries_aum = get_timeseries_aum_in_usd(end_date=end_date, start_date=start_date)
+    if option_unit:
+        timeseries_aum['AUM (KRW, Trillion)'] = round(timeseries_aum['aum']/ 1e12 ,4)
+        timeseries_aum['AUM (USD, Billion)'] = round(timeseries_aum['aum_in_usd']/ 1e9, 4)
+        timeseries_aum = timeseries_aum[['AUM (KRW, Trillion)', 'AUM (USD, Billion)']]
+    return timeseries_aum
