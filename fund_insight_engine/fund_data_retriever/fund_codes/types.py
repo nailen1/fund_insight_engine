@@ -49,3 +49,4 @@ def get_mapping_fund_names_equity(date_ref=None):
 
 def get_mapping_fund_names_variable(date_ref=None):
     return get_mapping_fund_names_by_type('변액', date_ref=date_ref)
+    

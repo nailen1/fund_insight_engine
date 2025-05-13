@@ -44,6 +44,12 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.3.3 (2025-05-13)
+- Added firm_aum module for company AUM time series analysis
+- Implemented currency conversion features (KRW to USD)
+- Improved function naming for better code readability
+- Enhanced time series data handling capabilities
+
 ### 0.3.2 (2025-04-24)
 - Added portfolio retrieval functionality with MongoDB integration
 - Implemented Portfolio class for easy fund portfolio management
