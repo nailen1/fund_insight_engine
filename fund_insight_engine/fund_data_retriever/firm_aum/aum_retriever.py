@@ -1,3 +1,4 @@
+from fund_insight_engine.fund_data_retriever.fund_codes import get_fund_codes_class, get_fund_codes_generals
 from fund_insight_engine import get_mapping_fund_names_class, get_mapping_fund_names_general
 from mongodb_controller import client
 from shining_pebbles import get_month_end_dates
@@ -6,11 +7,16 @@ from universal_timeseries_transformer import extend_timeseries_by_all_dates
 import pandas as pd
 from tqdm import tqdm
  
-def get_fund_codes_for_aum(date_ref):
-    names_class = get_mapping_fund_names_class(date_ref=date_ref)
-    names_general = get_mapping_fund_names_general(date_ref=date_ref)
-    names_for_aum = {**names_class, **names_general}
-    fund_codes_for_aum = list(names_for_aum.keys())
+def get_fund_codes_for_aum(date_ref, option_source='mongodb'):
+    if option_source == 'mongodb':
+        fund_codes_class = get_fund_codes_class(date_ref=date_ref)
+        fund_codes_general = get_fund_codes_generals(date_ref=date_ref)
+        fund_codes_for_aum = list(set(fund_codes_class + fund_codes_general))
+    elif option_source == 's3':
+        names_class = get_mapping_fund_names_class(date_ref=date_ref)
+        names_general = get_mapping_fund_names_general(date_ref=date_ref)
+        names_for_aum = {**names_class, **names_general}
+        fund_codes_for_aum = list(names_for_aum.keys())
     return fund_codes_for_aum
 
 def fetch_data_for_aum(date_ref):
@@ -44,8 +50,7 @@ def get_timeseries_aum(end_date, start_date=None):
         try:
             aum_of_date = get_aum_of_date(date_ref=end_date)
             aums.append({'date': end_date, 'aum': aum_of_date})
-        except Exception as e:
-            print(e)
+        except:
             pass
     aum = pd.DataFrame(aums).set_index('date')   
     return aum
