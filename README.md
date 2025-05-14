@@ -44,6 +44,11 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.4.0 (2025-05-14)
+- 변액펀드 코드 검색 기능 추가 (get_fund_codes_variable_main)
+- 코드 정리 및 불필요한 주석 제거
+- 유형별 펀드코드 분류 기능 최적화
+
 ### 0.3.9 (2025-05-14)
 - 유형별 펀드코드 분류 함수 추가 (get_fund_codes_equity, get_fund_codes_equity_mixed 등)
 - 메인 펀드 필터링과 결합된 유형별 펀드코드 검색 기능 추가

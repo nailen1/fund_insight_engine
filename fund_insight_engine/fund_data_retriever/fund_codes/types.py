@@ -65,13 +65,6 @@ def get_fund_codes_equity(date_ref=None):
 def get_fund_codes_variable(date_ref=None):
     return list(get_mapping_fund_names_variable(date_ref=date_ref).keys())
 
-# def get_fund_codes_division_01_main(date_ref=None):
-#     fund_codes_main = get_fund_codes_main(date_ref=date_ref)
-#     fund_codes_division_01 = get_fund_codes_division_01(date_ref=date_ref)
-#     fund_codes = list(set(fund_codes_main) & set(fund_codes_division_01))
-#     fund_codes_sorted = sorted(fund_codes)
-#     return fund_codes_sorted
-
 def get_fund_codes_equity_mixed_main(date_ref=None):
     fund_codes_main = get_fund_codes_main(date_ref=date_ref)
     fund_codes_equity_mixed = get_fund_codes_equity_mixed(date_ref=date_ref)
@@ -99,3 +92,11 @@ def get_fund_codes_equity_main(date_ref=None):
     fund_codes = list(set(fund_codes_main) & set(fund_codes_equity))
     fund_codes_sorted = sorted(fund_codes)
     return fund_codes_sorted
+
+def get_fund_codes_variable_main(date_ref=None):
+    fund_codes_main = get_fund_codes_main(date_ref=date_ref)
+    fund_codes_variable = get_fund_codes_variable(date_ref=date_ref)
+    fund_codes = list(set(fund_codes_main) & set(fund_codes_variable))
+    fund_codes_sorted = sorted(fund_codes)
+    return fund_codes_sorted
+    
