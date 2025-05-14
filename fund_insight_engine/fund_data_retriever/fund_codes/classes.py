@@ -1,10 +1,10 @@
+from canonical_transformer import get_mapping_of_column_pairs
 from fund_insight_engine.fund_data_retriever.menu_data import fetch_menu2210
 from fund_insight_engine.fund_data_retriever.fund_codes.classes_consts import (
     VALUES_FOR_CLASS, 
     KEY_FOR_CLASS, 
 )
-from .menu2110_consts import KEY_FOR_FUND_CODE_IN_MENU2110
-from canonical_transformer import get_mapping_of_column_pairs
+from fund_insight_engine.fund_data_retriever.fund_codes.menu2110_consts import KEY_FOR_FUND_CODE_IN_MENU2110, KEY_FOR_FUND_NAME_IN_MENU2110
 
 def get_dfs_funds_by_class(date_ref=None):
     df = fetch_menu2210(date_ref=date_ref)
@@ -48,10 +48,13 @@ def get_fund_codes_nonclassified(date_ref=None):
 def get_df_funds_main(date_ref=None):
     df = fetch_menu2210(date_ref=date_ref)
     df = df[df[KEY_FOR_CLASS]!='클래스펀드']
+    FUND_CODES_TO_EXCLUDE = ['100133', '100134']
+    df = df[~df['펀드코드'].isin(FUND_CODES_TO_EXCLUDE)]
     return df
 
 def get_mapping_fund_names_main(date_ref=None):
     df = get_df_funds_main(date_ref=date_ref)
     return get_mapping_of_column_pairs(df, key_col=KEY_FOR_FUND_CODE_IN_MENU2110, value_col=KEY_FOR_FUND_NAME_IN_MENU2110)
 
-
+def get_fund_codes_main(date_ref=None):
+    return list(get_mapping_fund_names_main(date_ref=date_ref).keys())

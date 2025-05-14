@@ -1,6 +1,7 @@
 from canonical_transformer import get_mapping_of_column_pairs
 from fund_insight_engine.fund_data_retriever.menu_data import fetch_menu2210
 from fund_insight_engine.fund_data_retriever.fund_codes.divisions_consts import MAPPING_DIVISION
+from fund_insight_engine.fund_data_retriever.fund_codes.classes import get_fund_codes_main
 
 def get_mapping_fund_names_by_division(key_for_division, date_ref=None):
     df = fetch_menu2210(date_ref=date_ref)
@@ -21,3 +22,17 @@ def get_fund_codes_division_01(date_ref=None):
 
 def get_fund_codes_division_02(date_ref=None):
     return list(get_mapping_fund_names_division_02(date_ref=date_ref).keys())
+
+def get_fund_codes_division_01_main(date_ref=None):
+    fund_codes_main = get_fund_codes_main(date_ref=date_ref)
+    fund_codes_division_01 = get_fund_codes_division_01(date_ref=date_ref)
+    fund_codes = list(set(fund_codes_main) & set(fund_codes_division_01))
+    fund_codes_sorted = sorted(fund_codes)
+    return fund_codes_sorted
+
+def get_fund_codes_division_02_main(date_ref=None):
+    fund_codes_main = get_fund_codes_main(date_ref=date_ref)
+    fund_codes_division_02 = get_fund_codes_division_02(date_ref=date_ref)
+    fund_codes = list(set(fund_codes_main) & set(fund_codes_division_02))
+    fund_codes_sorted = sorted(fund_codes)
+    return fund_codes_sorted
