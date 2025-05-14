@@ -44,6 +44,10 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.3.8 (2025-05-14)
+- 펀드명 필터링 기능 개선 (특정 키워드 제외 기능 추가)
+- 펀드 코드 검색 정확도 향상
+
 ### 0.3.7 (2025-05-14)
 - Enhanced fund code management functionality
 - Improved code organization and documentation
