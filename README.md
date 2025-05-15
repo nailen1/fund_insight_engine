@@ -44,6 +44,10 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.4.3 (2025-05-15)
+- MongoDB 컬렉션 임포트 경로 버그 수정
+- 펀드 정보 조회 기능 안정성 개선
+
 ### 0.4.2 (2025-05-15)
 - 모듈 임포트 버그 수정 (fund_info 모듈 추가)
 - 코드 안정성 개선

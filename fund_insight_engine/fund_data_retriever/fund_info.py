@@ -1,5 +1,5 @@
-from mongodb_controller import COLLECTION_8186
-from fund_insight_engine import get_latest_date_in_menu8186
+from fund_insight_engine.mongodb_retriever.menu8186_retriever.menu8186_connector import collection_menu8186 as COLLECTION_8186
+from fund_insight_engine.mongodb_retriever.menu8186_retriever.menu8186_date import get_latest_date_in_menu8186
 
 def get_fund_price(fund_code, date_ref=None):
     date_ref = date_ref or get_latest_date_in_menu8186()
