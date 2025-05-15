@@ -7,7 +7,7 @@ class DataFetcher:
         self.date_ref = date_ref
         self.data = None
         self.df = None
-        self._load_pipeline(option_verbose=True)
+        self._load_pipeline(option_verbose=False)
     
     def fetch_date_ref(self):
         if self.date_ref is None:
@@ -29,7 +29,7 @@ class DataFetcher:
         for method in lst_of_methods:
             try:
                 if option_verbose:
-                    print(f'Lo{method.__name__}...')
+                    print(f'load: {method.__name__} ...')
                 method()
             except Exception as e:
                 print(f'DataFetcher _load_pipeline error: {e}')
