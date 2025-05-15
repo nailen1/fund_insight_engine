@@ -44,6 +44,10 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.4.2 (2025-05-15)
+- 모듈 임포트 버그 수정 (fund_info 모듈 추가)
+- 코드 안정성 개선
+
 ### 0.4.1 (2025-05-15)
 - 펀드 순자산, 기준가, 설정액 조회 기능 추가 (get_fund_price, get_fund_nav 등)
 - 코드 구조 개선 및 모듈 재구성
