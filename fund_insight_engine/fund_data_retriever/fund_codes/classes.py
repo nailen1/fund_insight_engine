@@ -44,17 +44,3 @@ def get_fund_codes_class(date_ref=None):
 
 def get_fund_codes_nonclassified(date_ref=None):
     return get_fund_codes_by_class('-', date_ref=date_ref)
-
-def get_df_funds_main(date_ref=None):
-    df = fetch_menu2210(date_ref=date_ref)
-    df = df[df[KEY_FOR_CLASS]!='클래스펀드']
-    KEYWORDS_TO_EXCLUDE = ['1종', '2종', '3종']
-    df = df[~df['펀드명'].str.contains('|'.join(KEYWORDS_TO_EXCLUDE), na=False)]
-    return df
-
-def get_mapping_fund_names_main(date_ref=None):
-    df = get_df_funds_main(date_ref=date_ref)
-    return get_mapping_of_column_pairs(df, key_col=KEY_FOR_FUND_CODE_IN_MENU2110, value_col=KEY_FOR_FUND_NAME_IN_MENU2110)
-
-def get_fund_codes_main(date_ref=None):
-    return list(get_mapping_fund_names_main(date_ref=date_ref).keys())

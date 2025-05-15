@@ -44,6 +44,11 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.4.1 (2025-05-15)
+- 펀드 순자산, 기준가, 설정액 조회 기능 추가 (get_fund_price, get_fund_nav 등)
+- 코드 구조 개선 및 모듈 재구성
+- MongoDB 데이터 접근 최적화
+
 ### 0.4.0 (2025-05-14)
 - 변액펀드 코드 검색 기능 추가 (get_fund_codes_variable_main)
 - 코드 정리 및 불필요한 주석 제거

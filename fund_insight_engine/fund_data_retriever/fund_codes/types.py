@@ -2,7 +2,9 @@ from canonical_transformer import get_mapping_of_column_pairs
 from .types_consts import VALUES_FOR_TYPE, KEY_FOR_FUND_TYPE
 from .menu2110_consts import KEY_FOR_FUND_CODE_IN_MENU2110, KEY_FOR_FUND_NAME_IN_MENU2110
 from fund_insight_engine.fund_data_retriever.menu_data import fetch_menu2210
-from fund_insight_engine.fund_data_retriever.fund_codes import get_fund_codes_main
+from .main_fund_filter import filter_fund_codes_by_main_filter
+from .aum_fund_filter import filter_fund_codes_by_aum_filter
+
 def get_dfs_funds_by_type(date_ref=None):
     df = fetch_menu2210(date_ref=date_ref)
     dfs = dict(tuple(df.groupby(KEY_FOR_FUND_TYPE)))
@@ -66,37 +68,51 @@ def get_fund_codes_variable(date_ref=None):
     return list(get_mapping_fund_names_variable(date_ref=date_ref).keys())
 
 def get_fund_codes_equity_mixed_main(date_ref=None):
-    fund_codes_main = get_fund_codes_main(date_ref=date_ref)
     fund_codes_equity_mixed = get_fund_codes_equity_mixed(date_ref=date_ref)
-    fund_codes = list(set(fund_codes_main) & set(fund_codes_equity_mixed))
-    fund_codes_sorted = sorted(fund_codes)
-    return fund_codes_sorted
+    fund_codes = filter_fund_codes_by_main_filter(fund_codes_equity_mixed, date_ref=date_ref)
+    return fund_codes
 
 def get_fund_codes_bond_mixed_main(date_ref=None):
-    fund_codes_main = get_fund_codes_main(date_ref=date_ref)
     fund_codes_bond_mixed = get_fund_codes_bond_mixed(date_ref=date_ref)
-    fund_codes = list(set(fund_codes_main) & set(fund_codes_bond_mixed))
-    fund_codes_sorted = sorted(fund_codes)
-    return fund_codes_sorted
+    fund_codes = filter_fund_codes_by_main_filter(fund_codes_bond_mixed, date_ref=date_ref)
+    return fund_codes
 
 def get_fund_codes_multi_asset_main(date_ref=None):
-    fund_codes_main = get_fund_codes_main(date_ref=date_ref)
     fund_codes_multi_asset = get_fund_codes_multi_asset(date_ref=date_ref)
-    fund_codes = list(set(fund_codes_main) & set(fund_codes_multi_asset))
-    fund_codes_sorted = sorted(fund_codes)
-    return fund_codes_sorted
+    fund_codes = filter_fund_codes_by_main_filter(fund_codes_multi_asset, date_ref=date_ref)
+    return fund_codes
 
 def get_fund_codes_equity_main(date_ref=None):
-    fund_codes_main = get_fund_codes_main(date_ref=date_ref)
     fund_codes_equity = get_fund_codes_equity(date_ref=date_ref)
-    fund_codes = list(set(fund_codes_main) & set(fund_codes_equity))
-    fund_codes_sorted = sorted(fund_codes)
-    return fund_codes_sorted
+    fund_codes = filter_fund_codes_by_main_filter(fund_codes_equity, date_ref=date_ref)
+    return fund_codes
 
 def get_fund_codes_variable_main(date_ref=None):
-    fund_codes_main = get_fund_codes_main(date_ref=date_ref)
     fund_codes_variable = get_fund_codes_variable(date_ref=date_ref)
-    fund_codes = list(set(fund_codes_main) & set(fund_codes_variable))
-    fund_codes_sorted = sorted(fund_codes)
-    return fund_codes_sorted
+    fund_codes = filter_fund_codes_by_main_filter(fund_codes_variable, date_ref=date_ref)
+    return fund_codes
     
+def get_fund_codes_equity_mixed_aum(date_ref=None):
+    fund_codes_equity_mixed = get_fund_codes_equity_mixed(date_ref=date_ref)
+    fund_codes = filter_fund_codes_by_aum_filter(fund_codes_equity_mixed, date_ref=date_ref)
+    return fund_codes
+    
+def get_fund_codes_bond_mixed_aum(date_ref=None):
+    fund_codes_bond_mixed = get_fund_codes_bond_mixed(date_ref=date_ref)
+    fund_codes = filter_fund_codes_by_aum_filter(fund_codes_bond_mixed, date_ref=date_ref)
+    return fund_codes
+    
+def get_fund_codes_multi_asset_aum(date_ref=None):
+    fund_codes_multi_asset = get_fund_codes_multi_asset(date_ref=date_ref)
+    fund_codes = filter_fund_codes_by_aum_filter(fund_codes_multi_asset, date_ref=date_ref)
+    return fund_codes
+    
+def get_fund_codes_equity_aum(date_ref=None):
+    fund_codes_equity = get_fund_codes_equity(date_ref=date_ref)
+    fund_codes = filter_fund_codes_by_aum_filter(fund_codes_equity, date_ref=date_ref)
+    return fund_codes
+    
+def get_fund_codes_variable_aum(date_ref=None):
+    fund_codes_variable = get_fund_codes_variable(date_ref=date_ref)
+    fund_codes = filter_fund_codes_by_aum_filter(fund_codes_variable, date_ref=date_ref)
+    return fund_codes
