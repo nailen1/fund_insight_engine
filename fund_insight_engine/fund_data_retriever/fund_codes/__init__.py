@@ -1,4 +1,4 @@
-from .all import *
+from .all_funds import *
 from .classes import *
 from .divisions import *
 from .types import *

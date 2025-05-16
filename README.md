@@ -44,6 +44,10 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.4.6 (2025-05-16)
+- 모듈명 변경: `all` 모듈을 `all_funds`로 변경
+- Python 표준 라이브러리와의 이름 충돌 방지
+
 ### 0.4.5 (2025-05-16)
 - 포트폴리오 데이터 페처 로그 출력 버그 수정
 - 포트폴리오 데이터 로딩 기본 옵션 변경
