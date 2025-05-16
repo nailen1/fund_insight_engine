@@ -44,6 +44,11 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.5.0 (2025-05-16)
+- 펀드 매핑 관련 함수 확장 (mapping_classes, mapping_types, mappings_divisions 등)
+- 펀드 코드와 펀드명 매핑 기능 강화
+- 펀드 매핑 모듈 구조 개선
+
 ### 0.4.6 (2025-05-16)
 - 모듈명 변경: `all` 모듈을 `all_funds`로 변경
 - Python 표준 라이브러리와의 이름 충돌 방지

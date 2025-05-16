@@ -1,13 +1,9 @@
 from mongodb_controller import client
 import pandas as pd
-from fund_insight_engine.fund_data_retriever.fund_codes import filter_fund_codes_by_aum_filter, get_fund_codes_all
-
-def get_fund_codes_for_aum(date_ref=None):
-    fund_codes_for_aum = filter_fund_codes_by_aum_filter(get_fund_codes_all(date_ref=date_ref))
-    return fund_codes_for_aum
+from fund_insight_engine.fund_data_retriever.fund_codes import get_fund_codes_aum
 
 def fetch_data_for_aum(date_ref=None):
-    fund_codes_for_aum = get_fund_codes_for_aum(date_ref=date_ref)
+    fund_codes_for_aum = get_fund_codes_aum(date_ref=date_ref)
     collection = client['database-rpa']['dataset-menu8186']
     pipeline = [
         {'$match': {'펀드코드': {'$in': fund_codes_for_aum}, '일자': '2025-04-30'}},

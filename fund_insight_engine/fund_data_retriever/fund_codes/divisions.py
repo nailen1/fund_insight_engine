@@ -12,17 +12,11 @@ def get_mapping_fund_names_by_division(key_for_division, date_ref=None):
     df = df[COLS_TO_KEEP]
     return get_mapping_of_column_pairs(df, key_col='펀드코드', value_col='펀드명')
 
-def get_mapping_fund_names_division_01(date_ref=None):
-    return get_mapping_fund_names_by_division('division_01', date_ref=date_ref)
-
-def get_mapping_fund_names_division_02(date_ref=None):
-    return get_mapping_fund_names_by_division('division_02', date_ref=date_ref)
-
 def get_fund_codes_division_01(date_ref=None):
-    return list(get_mapping_fund_names_division_01(date_ref=date_ref).keys())
+    return list(get_mapping_fund_names_by_division('division_01', date_ref=date_ref).keys())
 
 def get_fund_codes_division_02(date_ref=None):
-    return list(get_mapping_fund_names_division_02(date_ref=date_ref).keys())
+    return list(get_mapping_fund_names_by_division('division_02', date_ref=date_ref).keys())
 
 def get_fund_codes_division_01_main(date_ref=None):
     fund_codes_division_01 = get_fund_codes_division_01(date_ref=date_ref)
