@@ -4,9 +4,10 @@ from .data_fetcher import DataFetcher
 
 
 class Portfolio:
-    def __init__(self, fund_code, date_ref=None):
+    def __init__(self, fund_code, date_ref=None, option_verbose=False):
         self.fund_code = fund_code
         self.date_ref = date_ref
+        self.option_verbose = option_verbose
         self.data_fetcher = None
         self.raw = None
         self.df = None
@@ -14,7 +15,7 @@ class Portfolio:
     
     def load_fetcher(self):
         if self.data_fetcher is None:
-            data_fetcher = DataFetcher(fund_code=self.fund_code, date_ref=self.date_ref)
+            data_fetcher = DataFetcher(fund_code=self.fund_code, date_ref=self.date_ref, option_verbose=self.option_verbose)
             self.date_ref = data_fetcher.date_ref
             self.data_fetcher = data_fetcher
         return self.data_fetcher

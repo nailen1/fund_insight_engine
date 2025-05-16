@@ -2,12 +2,13 @@ from .portfolio_fetcher import get_latest_date_ref_of_menu2205_by_fund_code, fet
 import pandas as pd
 
 class DataFetcher:
-    def __init__(self, fund_code, date_ref=None):
+    def __init__(self, fund_code, date_ref=None, option_verbose=False):
         self.fund_code = fund_code
         self.date_ref = date_ref
+        self.option_verbose = option_verbose
         self.data = None
         self.df = None
-        self._load_pipeline(option_verbose=False)
+        self._load_pipeline()
     
     def fetch_date_ref(self):
         if self.date_ref is None:
@@ -16,7 +17,7 @@ class DataFetcher:
 
     def fetch_data(self):
         if self.data is None:
-            self.data = fetch_data_menu2205(self.fund_code, self.fetch_date_ref())
+            self.data = fetch_data_menu2205(self.fund_code, self.fetch_date_ref(), option_verbose=self.option_verbose)
         return self.data
         
     def fetch_df(self):
@@ -24,11 +25,11 @@ class DataFetcher:
             self.df = pd.DataFrame(self.data)
         return self.df
         
-    def _load_pipeline(self, option_verbose=True):
+    def _load_pipeline(self):
         lst_of_methods = [self.fetch_date_ref, self.fetch_data, self.fetch_df]
         for method in lst_of_methods:
             try:
-                if option_verbose:
+                if self.option_verbose:
                     print(f'load: {method.__name__} ...')
                 method()
             except Exception as e:

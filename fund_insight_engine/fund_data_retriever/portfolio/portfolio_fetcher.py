@@ -27,14 +27,15 @@ def create_pipeline_for_menu2205(fund_code, date_ref=None):
     ]
     return pipeline
 
-def fetch_data_menu2205(fund_code, date_ref=None):
+def fetch_data_menu2205(fund_code, date_ref=None, option_verbose=False):
     date_ref = date_ref if date_ref else get_latest_date_ref_of_menu2205_by_fund_code(fund_code)
-    print(f'date_ref: {date_ref}')
+    if option_verbose:
+        print(f'(fund_code, date_ref): {fund_code, date_ref}')
     pipeline = create_pipeline_for_menu2205(fund_code, date_ref)
     cursor = collection_menu2205.aggregate(pipeline)
     return list(cursor)[0]['data']
 
-def fetch_df_menu2205(fund_code, date_ref=None):
-    data = fetch_data_menu2205(fund_code, date_ref)
+def fetch_df_menu2205(fund_code, date_ref=None, option_verbose=False):
+    data = fetch_data_menu2205(fund_code, date_ref, option_verbose=option_verbose)
     df = pd.DataFrame(data)
     return df

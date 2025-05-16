@@ -44,6 +44,10 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.5.1 (2025-05-16)
+- 포트폴리오 관련 클래스에 `option_verbose` 옵션 추가
+- 로그 출력 관련 기능 개선
+
 ### 0.5.0 (2025-05-16)
 - 펀드 매핑 관련 함수 확장 (mapping_classes, mapping_types, mappings_divisions 등)
 - 펀드 코드와 펀드명 매핑 기능 강화
