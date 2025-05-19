@@ -6,7 +6,7 @@ from universal_timeseries_transformer import extend_timeseries_by_all_dates
 from fund_insight_engine.mongodb_retriever.menu8186_retriever.menu8186_date import get_latest_date_in_menu8186
 from .aum_retriever import get_aum_of_date
 
-def get_timeseries_aum(start_date=None, end_date=None):
+def get_timeseries_month_end_aum(start_date=None, end_date=None):
     start_date = start_date or '2020-05-31'
     end_date = end_date or get_latest_date_in_menu8186()
     start_year_month = start_date.replace('-', '')[:6]
@@ -38,3 +38,16 @@ def get_firm_aum_since_inception(start_date=None, end_date=None, option_unit=Tru
         timeseries_aum['AUM (USD, Million)'] = round(timeseries_aum['aum_in_usd']/ 1e6, 4)
         timeseries_aum = timeseries_aum[['AUM (KRW, Billion)', 'AUM (USD, Million)']]
     return timeseries_aum
+
+
+def get_timeseries_aum(start_date=None, end_date=None):
+    # dates = None
+    aums = []
+    for end_date in tqdm(dates):
+        try:
+            aum_of_date = get_aum_of_date(date_ref=end_date)
+            aums.append({'date': end_date, 'aum': aum_of_date})
+        except:
+            pass
+    aum = pd.DataFrame(aums).set_index('date')   
+    return aum

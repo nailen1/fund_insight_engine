@@ -1,6 +1,6 @@
-from .timeseries_utils import get_data_timeseries, get_df_timeseries, slice_timeseries
+from .utils import get_data_timeseries_manager, get_df_timeseries_manager, slice_timeseries
 
-class Timeseries:
+class TimeseriesManager:
     def __init__(self, fund_code, start_date=None, end_date=None):
         self.fund_code = fund_code
         self.start_date = start_date
@@ -11,12 +11,12 @@ class Timeseries:
 
     def get_data(self):
         if self.data is None:
-            self.data = get_data_timeseries(self.fund_code)
+            self.data = get_data_timeseries_manager(self.fund_code)
         return self.data
 
     def get_df(self):
         if self.df is None:
-            df = get_df_timeseries(self.fund_code)
+            df = get_df_timeseries_manager(self.fund_code)
             self.df = slice_timeseries(df, self.start_date, self.end_date)
         return self.df
         
