@@ -44,57 +44,62 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.5.3 (2025-05-19)
+- Restructured module organization for better extensibility
+- Renamed modules to prevent potential naming conflicts
+- Improved import paths for cleaner code structure
+
 ### 0.5.2 (2025-05-19)
-- 시계열 조회 클래스 추가 (timeseries 모듈)
-- 펀드 클래스 추가 (시계열과 포트폴리오 조회 통합)
+- Added time series query class (timeseries module)
+- Added Fund class (integrated time series and portfolio query)
 
 ### 0.5.1 (2025-05-16)
-- 포트폴리오 관련 클래스에 `option_verbose` 옵션 추가
-- 로그 출력 관련 기능 개선
+- Added `option_verbose` parameter to portfolio-related classes
+- Improved logging functionality
 
 ### 0.5.0 (2025-05-16)
-- 펀드 매핑 관련 함수 확장 (mapping_classes, mapping_types, mappings_divisions 등)
-- 펀드 코드와 펀드명 매핑 기능 강화
-- 펀드 매핑 모듈 구조 개선
+- Enhanced fund mapping functions (mapping_classes, mapping_types, mappings_divisions, etc.)
+- Strengthened fund code and fund name mapping capabilities
+- Improved fund mapping module structure
 
 ### 0.4.6 (2025-05-16)
-- 모듈명 변경: `all` 모듈을 `all_funds`로 변경
-- Python 표준 라이브러리와의 이름 충돌 방지
+- Renamed module: changed `all` module to `all_funds`
+- Prevented name collision with Python standard library
 
 ### 0.4.5 (2025-05-16)
-- 포트폴리오 데이터 페처 로그 출력 버그 수정
-- 포트폴리오 데이터 로딩 기본 옵션 변경
+- Fixed portfolio data fetcher log output bug
+- Changed default options for portfolio data loading
 
 ### 0.4.4 (2025-05-15)
-- 펀드 정보 조회 함수에 빈 결과 처리 로직 추가
-- 데이터가 없는 경우 None 값을 반환하도록 예외 처리 개선
+- Added empty result handling logic to fund information retrieval functions
+- Improved exception handling to return None when no data is found
 
 ### 0.4.3 (2025-05-15)
-- MongoDB 컬렉션 임포트 경로 버그 수정
-- 펀드 정보 조회 기능 안정성 개선
+- Fixed MongoDB collection import path bug
+- Improved stability of fund information retrieval features
 
 ### 0.4.2 (2025-05-15)
-- 모듈 임포트 버그 수정 (fund_info 모듈 추가)
-- 코드 안정성 개선
+- Fixed module import bug (added fund_info module)
+- Improved code stability
 
 ### 0.4.1 (2025-05-15)
-- 펀드 순자산, 기준가, 설정액 조회 기능 추가 (get_fund_price, get_fund_nav 등)
-- 코드 구조 개선 및 모듈 재구성
-- MongoDB 데이터 접근 최적화
+- Added fund NAV, price, and AUM retrieval functions (get_fund_price, get_fund_nav, etc.)
+- Improved code structure and module reorganization
+- Optimized MongoDB data access
 
 ### 0.4.0 (2025-05-14)
-- 변액펀드 코드 검색 기능 추가 (get_fund_codes_variable_main)
-- 코드 정리 및 불필요한 주석 제거
-- 유형별 펀드코드 분류 기능 최적화
+- Added variable fund code search functionality (get_fund_codes_variable_main)
+- Cleaned up code and removed unnecessary comments
+- Optimized fund code classification by type
 
 ### 0.3.9 (2025-05-14)
-- 유형별 펀드코드 분류 함수 추가 (get_fund_codes_equity, get_fund_codes_equity_mixed 등)
-- 메인 펀드 필터링과 결합된 유형별 펀드코드 검색 기능 추가
-- 코드 구조 개선 및 모듈 간 의존성 최적화
+- Added fund code classification functions by type (get_fund_codes_equity, get_fund_codes_equity_mixed, etc.)
+- Added type-based fund code search functionality combined with main fund filtering
+- Improved code structure and optimized inter-module dependencies
 
 ### 0.3.8 (2025-05-14)
-- 펀드명 필터링 기능 개선 (특정 키워드 제외 기능 추가)
-- 펀드 코드 검색 정확도 향상
+- Improved fund name filtering functionality (added specific keyword exclusion)
+- Enhanced fund code search accuracy
 
 ### 0.3.7 (2025-05-14)
 - Enhanced fund code management functionality
