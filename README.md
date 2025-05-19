@@ -44,6 +44,10 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.5.2 (2025-05-19)
+- 시계열 조회 클래스 추가 (timeseries 모듈)
+- 펀드 클래스 추가 (시계열과 포트폴리오 조회 통합)
+
 ### 0.5.1 (2025-05-16)
 - 포트폴리오 관련 클래스에 `option_verbose` 옵션 추가
 - 로그 출력 관련 기능 개선
