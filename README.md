@@ -44,6 +44,11 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.5.6 (2025-05-20)
+- Refactored timeseries data transformation logic
+- Improved code organization in timeseries_manager module
+- Enhanced data processing efficiency
+
 ### 0.5.5 (2025-05-20)
 - Fixed minor bugs in portfolio module
 - Improved error handling in timeseries_manager

@@ -1,5 +1,6 @@
 import pandas as pd
 from mongodb_controller.mongodb_collections import COLLECTION_8186
+from universal_timeseries_transformer import transform_timeseries
 
 def slice_timeseries(df, start_date, end_date):
     if start_date is None and end_date is None:
@@ -33,4 +34,5 @@ def get_df_timeseries_manager(fund_code):
                     '주식비율', '채권비율', '주식순비율', '채권순비율', '지수선물순비율']
     df = df[COLS_ORDERED]
     df = df.set_index('일자')
+    df = transform_timeseries(df, option_type='datetime')
     return df
