@@ -1,3 +1,4 @@
+from universal_timeseries_transformer import transform_timeseries
 from .utils import get_data_timeseries_manager, get_df_timeseries_manager, slice_timeseries
 
 class TimeseriesManager:
@@ -17,6 +18,7 @@ class TimeseriesManager:
     def get_df(self):
         if self.df is None:
             df = get_df_timeseries_manager(self.fund_code)
+            df = transform_timeseries(df, option_type='datetime')
             self.df = slice_timeseries(df, self.start_date, self.end_date)
         return self.df
         

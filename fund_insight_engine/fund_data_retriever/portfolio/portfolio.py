@@ -51,6 +51,6 @@ class Portfolio:
             self.get_df()
             return True
         except Exception as e:
-            print(f'PortfolioVector _load_pipeline error: {e}')
+            print(f'Portfolio _load_pipeline error: {e}')
             return False
     
