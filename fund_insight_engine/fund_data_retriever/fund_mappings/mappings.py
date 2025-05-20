@@ -9,3 +9,6 @@ def get_mapping_fund_names_mongodb(date_ref=None):
 def get_mapping_fund_inception_dates_mongodb(date_ref=None):
     mapping_codes_and_dates = get_mapping_of_column_pairs(fetch_menu2210(date_ref=date_ref), key_col='펀드코드', value_col='설정일')
     return mapping_codes_and_dates
+
+def filter_mapping_fund_names_with_other_mapping(mapping_ref, mapping_to_exclude):
+    return {k: v for k, v in mapping_ref.items() if k not in mapping_to_exclude}
