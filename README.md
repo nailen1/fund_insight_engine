@@ -44,6 +44,11 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.5.10 (2025-05-26)
+- Modified fund price retrieval to maintain string date format
+- Optimized data processing for better compatibility with existing systems
+- Removed unnecessary data transformation
+
 ### 0.5.9 (2025-05-26)
 - Added fund price retrieval functionality
 - Enhanced time series data processing with datetime conversion

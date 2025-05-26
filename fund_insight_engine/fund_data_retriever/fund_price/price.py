@@ -26,21 +26,4 @@ def get_timeseries_fund_price(fund_code):
     if len(df) == 0:
         return pd.DataFrame()
     df = df.set_index('date')
-    df = transform_timeseries(df, option_type='datetime')
     return df
-
-def get_timeseries_funds_price(fund_codes):
-    if not fund_codes:
-        return pd.DataFrame()
-    
-    dfs = []
-    for fund_code in fund_codes:
-        df = get_timeseries_fund_price(fund_code)
-        if not df.empty:
-            dfs.append(df)
-    
-    if not dfs:
-        return pd.DataFrame()
-    
-    result = pd.concat(dfs, axis=1)
-    return result
