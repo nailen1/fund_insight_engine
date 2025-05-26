@@ -44,6 +44,11 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.5.8 (2025-05-26)
+- Added benchmark retrieval functionality (KOSPI, KOSDAQ, KOSPI200)
+- Restructured fund mapping modules for better organization
+- Improved fund division constants and mapping structure
+
 ### 0.5.7 (2025-05-20)
 - Enhanced fund mapping functionality with priority-based mappings
 - Added new utility function for filtering mappings
