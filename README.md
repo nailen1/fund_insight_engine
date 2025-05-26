@@ -44,6 +44,11 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.5.9 (2025-05-26)
+- Added fund price retrieval functionality
+- Enhanced time series data processing with datetime conversion
+- Added multi-fund price retrieval capability
+
 ### 0.5.8 (2025-05-26)
 - Added benchmark retrieval functionality (KOSPI, KOSDAQ, KOSPI200)
 - Restructured fund mapping modules for better organization
