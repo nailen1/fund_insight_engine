@@ -44,6 +44,12 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.6.0 (2025-05-27)
+- Enhanced portfolio data retrieval with new data source (menu2206)
+- Added stock portion retrieval functionality
+- Improved portfolio customization capabilities
+- Updated dependency requirements
+
 ### 0.5.10 (2025-05-26)
 - Modified fund price retrieval to maintain string date format
 - Optimized data processing for better compatibility with existing systems
