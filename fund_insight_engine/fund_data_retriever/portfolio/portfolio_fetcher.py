@@ -87,3 +87,32 @@ def get_df_portfolio(fund_code, date_ref=None):
     raw = fetch_df_menu2206(fund_code, date_ref)
     return run_pipeline_from_raw_to_portfolio(raw)
     
+
+def fetch_data_menu2206_snapshot(date_ref=None):
+    date_ref = date_ref if date_ref else COLLECTION_2206.distinct('일자')[-1]
+    pipeline = [
+        {'$match': {'일자': date_ref}},
+        {'$project': {'_id': 0}}
+    ]
+    cursor = COLLECTION_2206.aggregate(pipeline)
+    data = list(cursor)
+    return data
+
+def get_raw_menu2206_snapshot(date_ref=None):
+    data = fetch_data_menu2206_snapshot(date_ref)
+    df = pd.DataFrame(data)
+    return df
+
+get_raw_portfolio_snapshot = get_raw_menu2206_snapshot
+
+def get_fund_portfolio_snapshot(date_ref=None):
+    raw = get_raw_menu2206_snapshot(date_ref)
+    COLS_TO_PROJECT_FOR_SNAPSHOT = ["펀드코드", "자산", "종목", "종목명", "원화 보유정보: 수량", "원화 보유정보: 장부가액", "원화 보유정보: 평가액", "비중: 자산대비", "비중: 시장비중"]
+    df = (
+        raw
+        .set_index('일자')
+        .pipe(filter_df_by_valid_assets)
+        .pipe(lambda df: project_df_by_columns(df, COLS_TO_PROJECT_FOR_SNAPSHOT))
+        .pipe(rename_df_by_columns)
+    )
+    return df

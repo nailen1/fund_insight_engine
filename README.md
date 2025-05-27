@@ -44,6 +44,10 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.6.2 (2025-05-27)
+- Added portfolio snapshot retrieval functionality
+- Implemented functions to get all fund portfolios at a specific date
+
 ### 0.6.1 (2025-05-27)
 - Fixed portfolio customizer to preserve original DataFrame
 - Corrected parameter naming in portfolio fetcher functions
