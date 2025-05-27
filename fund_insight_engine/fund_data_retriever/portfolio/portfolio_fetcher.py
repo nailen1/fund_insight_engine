@@ -67,11 +67,11 @@ COLS_TO_PROJECT = ["자산", "종목", "종목명", "원화 보유정보: 수량
 COLS_RENAMED = ["자산", "종목", "종목명", "수량", "장부가", "평가액", "비중", "시장비중"]
 MAPPING_COLS = dict(zip(COLS_TO_PROJECT, COLS_RENAMED))
 
-def project_df_by_columns(df, cols=COLS_TO_PROJECT):
-    return df[cols]
+def project_df_by_columns(df, columns=COLS_TO_PROJECT):
+    return df[columns]
 
-def rename_df_by_columns(df, cols=COLS_RENAMED):
-    return df.rename(columns=MAPPING_COLS)
+def rename_df_by_columns(df, columns=MAPPING_COLS):
+    return df.rename(columns=columns)
 
 def run_pipeline_from_raw_to_portfolio(raw):
     df = (
