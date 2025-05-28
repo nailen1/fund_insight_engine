@@ -2,14 +2,14 @@ from setuptools import setup, find_packages
 
 setup(
     name="fund_insight_engine",
-    version="0.6.2",
+    version="0.6.3",
     packages=find_packages(),
     # requirements.txt의 내용을 install_requires로 자동 반영
     install_requires=[
         req.strip() for req in open("requirements.txt", encoding="utf-8")
         if req.strip() and not req.strip().startswith("#")
     ],
-    author="Juneyoung Park",
+    author="June Young Park",
     author_email="juneyoungpaak@gmail.com",
     description="A Python package providing utility functions for fund code management and analysis",
     long_description=open("README.md", encoding="utf-8").read() if open("README.md", encoding="utf-8") else "",

@@ -6,4 +6,5 @@ from .portfolio import *
 from .firm_aum import *
 from .fund_info import *
 from .fund_mappings import *
+from .fund_bm import *
 from .timeseries_manager import *

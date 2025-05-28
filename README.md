@@ -44,6 +44,11 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.6.3 (2025-05-28)
+- Added market data retrieval functionality with Bloomberg tickers
+- Implemented global currency, bond, and index data retrieval
+- Reorganized benchmark retrieval into market_retriever module
+
 ### 0.6.2 (2025-05-27)
 - Added portfolio snapshot retrieval functionality
 - Implemented functions to get all fund portfolios at a specific date

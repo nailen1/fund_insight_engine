@@ -42,7 +42,8 @@ def fetch_df_menu2205(fund_code, date_ref=None, option_verbose=False):
 # 2206: total portfolio
 def fetch_data_menu2206(fund_code, date_ref=None):
     collection = COLLECTION_2206
-    date_ref = date_ref or collection.distinct('일자')[-1]
+    dates_in_db = sorted(collection.distinct('일자'))
+    date_ref = date_ref or dates_in_db[-1]
     pipeline = [
         {'$match': {'일자': date_ref, '펀드코드': fund_code}},
         {'$project': {'_id': 0}}
@@ -89,7 +90,8 @@ def get_df_portfolio(fund_code, date_ref=None):
     
 
 def fetch_data_menu2206_snapshot(date_ref=None):
-    date_ref = date_ref if date_ref else COLLECTION_2206.distinct('일자')[-1]
+    dates_in_db = sorted(COLLECTION_2206.distinct('일자'))
+    date_ref = date_ref if date_ref else dates_in_db[-1]
     pipeline = [
         {'$match': {'일자': date_ref}},
         {'$project': {'_id': 0}}
