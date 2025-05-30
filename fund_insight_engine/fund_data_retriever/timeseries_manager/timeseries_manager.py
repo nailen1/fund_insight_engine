@@ -1,4 +1,3 @@
-from universal_timeseries_transformer import transform_timeseries
 from .utils import get_data_timeseries_manager, get_df_timeseries_manager, slice_timeseries
 
 class TimeseriesManager:

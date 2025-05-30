@@ -1,12 +1,12 @@
 from canonical_transformer import get_mapping_of_column_pairs
+from fund_insight_engine.mongodb_retriever.menu2110_retriever.menu2110_consts import KEY_FOR_FUND_CODE_IN_MENU2110, KEY_FOR_FUND_NAME_IN_MENU2110
+from fund_insight_engine.mongodb_retriever.menu2110_retriever.menu2110_utils import get_df_menu2110
 from .types_consts import VALUES_FOR_TYPE, KEY_FOR_FUND_TYPE
-from .menu2110_consts import KEY_FOR_FUND_CODE_IN_MENU2110, KEY_FOR_FUND_NAME_IN_MENU2110
-from fund_insight_engine.fund_data_retriever.menu_data import fetch_menu2210
 from .main_fund_filter import filter_fund_codes_by_main_filter
 from .aum_fund_filter import filter_fund_codes_by_aum_filter
 
 def get_dfs_funds_by_type(date_ref=None):
-    df = fetch_menu2210(date_ref=date_ref)
+    df = get_df_menu2110(date_ref=date_ref)
     dfs = dict(tuple(df.groupby(KEY_FOR_FUND_TYPE)))
     return dfs
 

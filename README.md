@@ -44,6 +44,13 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.7.0 (2025-05-30)
+- Major architectural update with Fund class implementation
+- Comprehensive API for accessing all fund-related data
+- Streamlined data pipeline for efficient fund data retrieval
+- Enhanced integration between different data sources
+- Improved code structure and organization
+
 ### 0.6.3 (2025-05-28)
 - Added market data retrieval functionality with Bloomberg tickers
 - Implemented global currency, bond, and index data retrieval

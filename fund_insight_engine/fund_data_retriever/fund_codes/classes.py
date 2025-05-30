@@ -1,13 +1,9 @@
-from canonical_transformer import get_mapping_of_column_pairs
-from fund_insight_engine.fund_data_retriever.menu_data import fetch_menu2210
-from fund_insight_engine.fund_data_retriever.fund_codes.classes_consts import (
-    VALUES_FOR_CLASS, 
-    KEY_FOR_CLASS, 
-)
-from fund_insight_engine.fund_data_retriever.fund_codes.menu2110_consts import KEY_FOR_FUND_CODE_IN_MENU2110, KEY_FOR_FUND_NAME_IN_MENU2110
+from fund_insight_engine.mongodb_retriever.menu2110_retriever.menu2110_utils import get_df_menu2110
+from fund_insight_engine.mongodb_retriever.menu2110_retriever.menu2110_consts import KEY_FOR_FUND_CODE_IN_MENU2110
+from .classes_consts import KEY_FOR_CLASS
 
 def get_dfs_funds_by_class(date_ref=None):
-    df = fetch_menu2210(date_ref=date_ref)
+    df = get_df_menu2110(date_ref=date_ref)
     df_code_class = df[[KEY_FOR_FUND_CODE_IN_MENU2110, KEY_FOR_CLASS]]
     dfs = dict(tuple(df_code_class.groupby(KEY_FOR_CLASS)))
     return dfs

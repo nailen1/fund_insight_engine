@@ -1,24 +1,26 @@
-from shining_pebbles import get_yesterday
-import pandas as pd
-from .portfolio_fetcher import (
-    fetch_df_menu2206,
-    run_pipeline_from_raw_to_portfolio,
-)
+from canonical_transformer import map_data_to_df
+from fund_insight_engine.mongodb_retriever.menu2206_retriever.menu2206_utils import fetch_data_menu2206_by_fund
+from .portfolio_utils import run_pipeline_from_raw_to_portfolio
 from .portfolio_customizer import customize_df_portfolio
 
 class Portfolio:
-    def __init__(self, fund_code, date_ref=None, option_verbose=False):
+    def __init__(self, fund_code, date_ref=None):
         self.fund_code = fund_code
         self.date_ref = date_ref
-        self.option_verbose = option_verbose
+        self.data = None
         self.raw = None
         self.df = None
         self.port = None
         self._load_pipeline()
 
+    def get_data(self):
+        if self.data is None:
+            self.data = fetch_data_menu2206_by_fund(self.fund_code, self.date_ref)
+        return self.data
+
     def get_raw(self):
         if self.raw is None:
-            self.raw = fetch_df_menu2206(self.fund_code, self.date_ref)
+            self.raw = map_data_to_df(self.get_data())
         return self.raw
 
     def get_df(self):
@@ -33,6 +35,7 @@ class Portfolio:
 
     def _load_pipeline(self):
         try:
+            self.get_data()
             self.get_raw()
             self.get_df()
             self.get_customized_port()
