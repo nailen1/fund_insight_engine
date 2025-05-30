@@ -16,6 +16,7 @@ class Fund:
         self.prices = None
         self._returns = None
         self._cumreturns = None
+        self._columns_ref = None
         self._load_basic_data()        
 
     def _set_date_ref(self, date_ref, end_date):
@@ -53,3 +54,9 @@ class Fund:
         if self._cumreturns is None:
             self._cumreturns = map_timeseries_to_cumreturns(self.prices)
         return self._cumreturns
+
+    @property
+    def columns_ref(self):
+        if self._columns_ref is None:
+            self._columns_ref = self.prices.columns
+        return self._columns_ref

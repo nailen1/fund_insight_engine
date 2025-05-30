@@ -44,6 +44,10 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.7.2 (2025-05-30)
+- Updated dependency version for universal_timeseries_transformer to 0.1.5
+- Added columns_ref property to Fund class for convenient column reference
+
 ### 0.7.1 (2025-05-30)
 - Enhanced timeseries functionality with price extension to previous date
 - Added constants for fund price column name and initial default price
