@@ -1,11 +1,18 @@
+from string_date_controller import get_date_n_days_ago
 from fund_insight_engine.mongodb_retriever.menu8186_retriever.menu8186_utils import (
-    fetch_data_menu8186_by_fund, 
     get_df_menu8186_by_fund
 )
-from .timeseries_consts import COLUMNS_FOR_TIMESERIES, KEYS_FOR_TIMESERIES
+from .timeseries_consts import COLUMNS_FOR_TIMESERIES, KEYS_FOR_TIMESERIES, COLUMN_NAME_FOR_FUND_PRICE, INITIAL_DEFAULT_PRICE
 
 def set_index_of_timeseries(df):
     df = df.set_index('일자').rename_axis('date')
+    return df
+
+def extend_price_timeseries_to_prev_date(df):
+    date_initial = df.index[0]
+    date_prev = get_date_n_days_ago(date_initial, 1)
+    df.loc[date_prev, COLUMN_NAME_FOR_FUND_PRICE] = INITIAL_DEFAULT_PRICE
+    df = df.sort_index()
     return df
 
 def get_df_timeseries_by_fund(fund_code, start_date=None, end_date=None, keys_to_project=KEYS_FOR_TIMESERIES):
@@ -14,6 +21,7 @@ def get_df_timeseries_by_fund(fund_code, start_date=None, end_date=None, keys_to
         df
         .copy()
         .pipe(set_index_of_timeseries)
+        .pipe(extend_price_timeseries_to_prev_date)
     )
     return df
 

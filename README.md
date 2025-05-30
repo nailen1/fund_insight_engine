@@ -44,6 +44,11 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.7.1 (2025-05-30)
+- Enhanced timeseries functionality with price extension to previous date
+- Added constants for fund price column name and initial default price
+- Improved import structure for better code organization
+
 ### 0.7.0 (2025-05-30)
 - Major architectural update with Fund class implementation
 - Comprehensive API for accessing all fund-related data
