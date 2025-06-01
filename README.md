@@ -44,9 +44,12 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.7.4 (2025-06-01)
+- Fixed critical issue with package structure
+- Reverted unintended code additions
+
 ### 0.7.3 (2025-06-01)
-- Added timeseries_matrix class with powerful return and cumulative return functionality
-- Enhanced data analysis capabilities for time series data
+- [DEPRECATED] This version contains errors and should not be used
 
 ### 0.7.2 (2025-05-30)
 - Updated dependency version for universal_timeseries_transformer to 0.1.5
