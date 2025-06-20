@@ -2,9 +2,8 @@ from setuptools import setup, find_packages
 
 setup(
     name="fund_insight_engine",
-    version="0.7.4",
+    version="0.7.5",
     packages=find_packages(),
-    # requirements.txt의 내용을 install_requires로 자동 반영
     install_requires=[
         req.strip() for req in open("requirements.txt", encoding="utf-8")
         if req.strip() and not req.strip().startswith("#")
