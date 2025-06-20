@@ -45,6 +45,11 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.7.6 (2025-06-20)
+
+- Fixed package installation issue by including requirements.txt in the package
+- Same features as 0.7.5
+
 ### 0.7.5 (2025-06-20)
 
 - Updated dependency version for universal_timeseries_transformer to 0.2.7
