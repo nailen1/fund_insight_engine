@@ -8,3 +8,4 @@ from .fund_bm import *
 from .portfolio import *
 from .timeseries import *
 from .timeseries_manager import *
+from .fund_configuration import *

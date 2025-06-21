@@ -45,6 +45,11 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.7.7 (2025-06-21)
+
+- Added legacy web server API functions in server_api module
+- Added utility functions for API data transformation
+
 ### 0.7.6 (2025-06-20)
 
 - Fixed package installation issue by including requirements.txt in the package
