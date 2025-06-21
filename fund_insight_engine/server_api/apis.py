@@ -51,7 +51,7 @@ def api__temp__latest_date():
     return get_latest_date_in_collection(COLLECTION_2110, 'date_ref')
 
 
-def api__temp__fund_info__fund_code__date_ref(fund_code, date_ref):
+def api__temp__total__fund_code__date_ref(fund_code, date_ref):
     info = fetch_data_fund_info(fund_code, date_ref)
     numbers = fetch_data_fund_numbers(fund_code, date_ref)
     data = {
