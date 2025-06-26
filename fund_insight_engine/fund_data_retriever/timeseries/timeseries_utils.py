@@ -1,3 +1,4 @@
+from functools import partial
 from string_date_controller import get_date_n_days_ago
 from fund_insight_engine.mongodb_retriever.menu8186_retriever.menu8186_utils import (
     get_df_menu8186_by_fund
@@ -11,20 +12,24 @@ def set_index_of_timeseries(df):
 def extend_price_timeseries_to_prev_date(df):
     date_initial = df.index[0]
     date_prev = get_date_n_days_ago(date_initial, 1)
-    df.loc[date_prev, COLUMN_NAME_FOR_FUND_PRICE] = INITIAL_DEFAULT_PRICE
+    df.loc[date_prev, COLUMN_NAME_FOR_FUND_PRICE] = INITIAL_DEFAULT_PRICE 
     df = df.sort_index()
     return df
 
 def get_df_timeseries_by_fund(fund_code, start_date=None, end_date=None, keys_to_project=KEYS_FOR_TIMESERIES):
-    df = get_df_menu8186_by_fund(fund_code=fund_code, start_date=start_date, end_date=end_date, keys_to_project=keys_to_project)
-    df = (
-        df
-        .copy()
-        .pipe(set_index_of_timeseries)
-        .pipe(extend_price_timeseries_to_prev_date)
-    )
+    if start_date:
+        date_prev = get_date_n_days_ago(start_date, 1)
+        df = (
+            get_df_menu8186_by_fund(fund_code=fund_code, start_date=date_prev, end_date=end_date, keys_to_project=keys_to_project)
+            .pipe(set_index_of_timeseries)
+        )
+    else:
+        df = (
+            get_df_menu8186_by_fund(fund_code=fund_code, end_date=end_date, keys_to_project=keys_to_project)
+            .pipe(set_index_of_timeseries)
+            .pipe(extend_price_timeseries_to_prev_date)
+        )
     return df
-
 
 def slice_timeseries(df, start_date=None, end_date=None):
     if start_date is None and end_date is None:

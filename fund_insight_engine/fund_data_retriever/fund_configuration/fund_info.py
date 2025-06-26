@@ -3,7 +3,9 @@ from mongodb_controller import COLLECTION_CONFIGURATION
 from .pipeline import create_pipeline_for_fund_configuration
 
 def fetch_data_fund_configuration(fund_code, date_ref=None):
-    date_ref = date_ref if date_ref else sorted(COLLECTION_CONFIGURATION.distinct('date_ref'), reverse=True)[-1]
+    if not date_ref:
+        # 특정 펀드코드에 해당하는 데이터 중 가장 최근 일자 선택
+        date_ref = sorted(COLLECTION_CONFIGURATION.distinct('date_ref', {'fund_code': fund_code}), reverse=True)[0]
     pipeline = create_pipeline_for_fund_configuration(fund_code, date_ref)
     cursor = COLLECTION_CONFIGURATION.aggregate(pipeline=pipeline)
     data = list(cursor)[0]
@@ -23,12 +25,4 @@ def get_df_fund_info(fund_code, date_ref=None):
         pd.DataFrame([data])
         .set_index('펀드코드')
         .T
-    )
-
-def get_df_fund_fee(fund_code, date_ref=None):
-    data = fetch_data_fund_fee(fund_code, date_ref)
-    return (
-        pd.DataFrame(data)
-        .set_index('판매사코드')
-        .T    
     )

@@ -45,6 +45,19 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.8.0 (2025-06-26)
+
+- Added fund_utils.py with enhanced fund data processing utilities
+- Improved date reference handling in fund configuration modules
+- Updated benchmark names in API utilities
+- Enhanced timeseries data processing
+
+### 0.7.9 (2025-06-23)
+
+- Fixed date reference selection logic to use fund-specific data
+- Updated benchmark names in API utilities
+- Improved data retrieval efficiency
+
 ### 0.7.8 (2025-06-21)
 
 - Fixed function naming in server_api module to prevent confusion
