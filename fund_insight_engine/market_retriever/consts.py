@@ -7,7 +7,15 @@ MAPPING_TICKER_BBG_INDEX = {
     'KOSPI2 Index': 'KOSPI200',
     'SPX Index': 'S_P500',
     'CCMP Index': 'NASDAQ',
-    'INDU Index': 'DOW'
+    'INDU Index': 'DOW',
+    'NKY Index': 'NIKKEI',
+    'SHCOMP Index': 'SHANGHAI',
+    'HSI Index': 'HANGSENG',
+    'DAX Index': 'DAX',
+    'UKX Index': 'FTSE',
+    'RTSI$ Index': 'RTS',
+    'IBOV Index': 'BOVESPA',
+    'SENSEX Index': 'SENSEX'
     # 'GVSK3YR Index': '국고채(3년)',
 }
 
@@ -35,8 +43,8 @@ TICKER_COLLECTION_GLOBAL_CURRENCY = 'GLOBAL Curncy'
 TICKER_COLLECTION_KOREA_BOND = 'KR Bond'
 TICKER_COLLECTION_KOREA_INDEX = 'KR Index'
 TICKER_COLLECTION_US_INDEX = 'US Index'
-# TICKER_COLLECTION_ASIA_INDEX = 'ASIA Index'
-# TICKER_COLLECTION_ETC1_INDEX = 'ETC1 Index'
+TICKER_COLLECTION_ASIA_INDEX = 'ASIA Index'
+TICKER_COLLECTION_ETC1_INDEX = 'ETC1 Index'
 
 KOREA_BBG_TICKERS_INDEX = ['KOSPI Index', 'KOSDAQ Index', 'KOSPI2 Index', 'KOSPI200 Index']
 US_BBG_TICKERS_INDEX = ['SPX Index', 'CCMP Index', 'INDU Index']

@@ -45,6 +45,13 @@ fund_names = fund_codes_retriever.get_mapping_fund_names_main()
 
 ## Version History
 
+### 0.8.1 (2025-07-03)
+
+- Added additional market indices (Asia, ETC1) for benchmark comparison
+- Added compound indices functionality
+- Added trust fund codes module
+- Updated dependencies to support enhanced index operations
+
 ### 0.8.0 (2025-06-26)
 
 - Added fund_utils.py with enhanced fund data processing utilities

@@ -10,7 +10,8 @@ from fund_insight_engine.market_retriever import (
     get_us_indices,
     get_currencies,
     get_korea_bonds,
-    get_indices,
+    get_default_indices,
+    get_compound_indices,
 )
 from .fund_consts import KEYS_TO_PROJECT_FOR_FUND_PRICE, COL_FOR_FUND_PRICE
 
@@ -38,7 +39,8 @@ def get_corrected_prices_with_indices(fund_code, start_date=None, end_date=None,
         'us': get_us_indices,
         'currency': get_currencies,
         'bond': get_korea_bonds,
-        'all': get_indices,
+        'default': get_default_indices,
+        'compound': get_compound_indices,
     }
     indices = mapping_indices.get(option_indices)
     if indices is None:
