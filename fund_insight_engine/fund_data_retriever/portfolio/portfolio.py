@@ -1,3 +1,4 @@
+from functools import cached_property
 from canonical_transformer import map_data_to_df
 from fund_insight_engine.mongodb_retriever.menu2206_retriever.menu2206_utils import fetch_data_menu2206_by_fund
 from .portfolio_utils import run_pipeline_from_raw_to_portfolio
@@ -7,40 +8,30 @@ class Portfolio:
     def __init__(self, fund_code, date_ref=None):
         self.fund_code = fund_code
         self.date_ref = date_ref
-        self.data = None
-        self.raw = None
-        self.df = None
-        self.port = None
-        self._load_pipeline()
 
-    def get_data(self):
-        if self.data is None:
-            self.data = fetch_data_menu2206_by_fund(self.fund_code, self.date_ref)
-        return self.data
+    @cached_property
+    def data(self):
+        return fetch_data_menu2206_by_fund(self.fund_code, self.date_ref)
 
-    def get_raw(self):
-        if self.raw is None:
-            self.raw = map_data_to_df(self.get_data())
-        return self.raw
+    @cached_property
+    def raw(self):
+        return map_data_to_df(self.data)
 
-    def get_df(self):
-        if self.df is None:
-            self.df = run_pipeline_from_raw_to_portfolio(self.get_raw())
-        return self.df
+    @cached_property
+    def df(self):
+        return run_pipeline_from_raw_to_portfolio(self.raw)
 
-    def get_customized_port(self):
-        if self.port is None:
-            self.port = customize_df_portfolio(self.get_df())
-        return self.port
-
-    def _load_pipeline(self):
-        try:
-            self.get_data()
-            self.get_raw()
-            self.get_df()
-            self.get_customized_port()
-            return True
-        except Exception as e:
-            print(f'Portfolio _load_pipeline error: {e}')
-            return False
+    @cached_property
+    def port(self):
+        return customize_df_portfolio(self.df)
     
+    @cached_property
+    def sector(self):
+        df = self.df
+        df['업종구분/보증기관'] = df['업종구분/보증기관'].replace('', '미분류')
+        return df.groupby('업종구분/보증기관').agg({
+            '비중': 'sum',
+            '평가액': 'sum', 
+            '장부가': 'sum',
+            '종목': 'count'
+        })

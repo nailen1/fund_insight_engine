@@ -27,9 +27,7 @@ from .fund_utils import (
 )
 
 class Fund:
-    """
-    Time series matrix wrapper with lazy-loaded transformations.
-    
+    """    
     Cached Properties:
         corrected_prices: Corrected prices DataFrame
         prices: Prices DataFrame
@@ -52,7 +50,7 @@ class Fund:
         cumreturns_ref: Reference-based cumulative returns DataFrame (needs invalidation)
     """
 
-    def __init__(self, fund_code: str, start_date: str=None, end_date: str=None, date_ref: str=None, option_indices: str='kr'):
+    def __init__(self, fund_code: str, start_date: str=None, end_date: str=None, date_ref: str=None, option_indices: str='default'):
         self.fund_code = fund_code
         self.start_date = start_date
         self.end_date = end_date
@@ -71,16 +69,24 @@ class Fund:
         return self.corrected_prices.loc[self.start_date:, :]
 
     @cached_property
-    def _obj_prices_matrix(self) -> PricesMatrix:
+    def pm(self) -> PricesMatrix:
         return PricesMatrix(self.corrected_prices)
 
     @cached_property
     def returns(self) -> pd.DataFrame:
-        return self._obj_prices_matrix.returns.loc[self.start_date:, :]
+        return self.pm.returns.loc[self.start_date:, :]
 
     @cached_property
     def cumreturns(self) -> pd.DataFrame:
-        return self._obj_prices_matrix.cumreturns.loc[self.start_date:, :]
+        return self.pm.cumreturns.loc[self.start_date:, :]
+
+    @cached_property
+    def q(self) -> pd.DataFrame:
+        return self.prices.iloc[:,[0]]
+
+    @cached_property
+    def v(self) -> pd.DataFrame:
+        return self.returns.iloc[:,[0]]
 
     @cached_property
     def raw_timesries(self) -> pd.DataFrame:
@@ -119,16 +125,12 @@ class Fund:
         return get_df_fund_numbers(fund_code=self.fund_code, date_ref=self.date_ref)
     
     @cached_property
-    def _obj_portfolio(self) -> Portfolio:
+    def portfolio(self) -> Portfolio:
         return Portfolio(fund_code=self.fund_code, date_ref=self.date_ref)
-
-    @cached_property
-    def portfolio(self) -> pd.DataFrame:
-        return self._obj_portfolio.df
-
+    
     @cached_property
     def raw_portfolio(self) -> pd.DataFrame:
-        return self._obj_portfolio.raw
+        return self.portfolio.raw
 
     @cached_property
     def price(self) -> pd.DataFrame:
@@ -157,3 +159,7 @@ class Fund:
     @cached_property
     def portion(self) -> pd.DataFrame:
         return get_portion(fund_code=self.fund_code, start_date=self.start_date, end_date=self.end_date)
+    
+    def get_cumreturns_ref(self, index_ref: str=None) -> pd.DataFrame:
+        return self.pm.get_cumreturns_ref(index_ref=index_ref)
+    
