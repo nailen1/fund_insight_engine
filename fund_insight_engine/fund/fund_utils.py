@@ -32,8 +32,16 @@ def get_corrected_prices(fund_code, start_date=None, end_date=None):
         )
     return df
 
-def get_corrected_prices_with_indices(fund_code, start_date=None, end_date=None, option_indices='kr'):
+def get_corrected_prices_with_indices(fund_code, start_date=None, end_date=None, option_indices='default'):
     prices_fund = get_corrected_prices(fund_code, start_date, end_date)
+
+    get_kospi_indices = get_korea_indices
+    def get_kosdaq_indices(start_date=None, end_date=None):
+        indices = get_default_indices(start_date=start_date, end_date=end_date)
+        COLS_ORDERED = ['KOSDAQ Index', 'KOSPI Index', 'KOSPI2 Index', 'SPX Index']
+        indices = indices[COLS_ORDERED]
+        return indices
+    
     mapping_indices = {
         'kr': get_korea_indices,
         'us': get_us_indices,
@@ -41,11 +49,11 @@ def get_corrected_prices_with_indices(fund_code, start_date=None, end_date=None,
         'bond': get_korea_bonds,
         'default': get_default_indices,
         'compound': get_compound_indices,
+        'KOSPI': get_kospi_indices,
+        'KOSDAQ': get_kosdaq_indices,
     }
-    indices = mapping_indices.get(option_indices)
-    if indices is None:
-        raise ValueError(f"Invalid option_indices: {option_indices}")
-    indices = indices(prices_fund.index[0], prices_fund.index[-1])
+    kernel_indices = mapping_indices.get(option_indices, 'default')
+    indices = kernel_indices(prices_fund.index[0], prices_fund.index[-1])
     prices = (
         prices_fund
         .join(indices)

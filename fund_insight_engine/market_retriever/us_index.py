@@ -2,7 +2,7 @@ from canonical_transformer import map_data_to_df
 from universal_timeseries_transformer import extend_timeseries_by_all_dates
 from .menu1100_basis import fetch_data_menu1100
 from .consts import MAPPING_TICKER_BBG_INDEX, INVERSE_MAPPING_TICKER_BBG_INDEX, TICKER_COLLECTION_US_INDEX
-
+from .global_currency import get_currency
 
 def rename_columns(df):
     cols = df.columns
@@ -24,6 +24,7 @@ def get_us_indices(start_date=None, end_date=None):
         .pipe(extend_timeseries_by_all_dates)
         .pipe(rename_columns)
     )
+    df = df.join(get_currency(ticker_bbg_curncy='USDKRW Curncy'))
     return df
 
 def get_us_index(ticker_bbg_index, start_date=None, end_date=None):

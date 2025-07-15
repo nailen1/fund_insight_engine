@@ -53,19 +53,22 @@ class Fund:
         cumreturns_ref: Reference-based cumulative returns DataFrame (needs invalidation)
     """
 
-    def __init__(self, fund_code: str, start_date: str=None, end_date: str=None, date_ref: str=None, option_indices: str='default'):
+    def __init__(self, fund_code: str, start_date: str=None, end_date: str=None, date_ref: str=None, benchmark: str=None):
         self.fund_code = fund_code
         self.start_date = start_date
         self.end_date = end_date
         self.date_ref = self.set_date_ref(date_ref)        
-        self.option_indices = option_indices
+        self.benchmark = self.set_benchmark(benchmark)
 
     def set_date_ref(self, date_ref: str=None) -> str:
         return date_ref if date_ref else self.end_date
 
+    def set_benchmark(self, benchmark: str=None) -> str:
+        return self.info_concise.loc['BM1: 기준'][0] if benchmark is None else benchmark
+
     @cached_property
     def corrected_prices(self) -> pd.DataFrame:
-        return get_corrected_prices_with_indices(self.fund_code, self.start_date, self.end_date, option_indices=self.option_indices)
+        return get_corrected_prices_with_indices(self.fund_code, self.start_date, self.end_date, option_indices=self.benchmark)
     
     @cached_property
     def prices(self) -> pd.DataFrame:
