@@ -1,7 +1,8 @@
 from functools import cached_property
+import numpy as np
 from canonical_transformer import map_data_to_df
 from fund_insight_engine.mongodb_retriever.menu2206_retriever.menu2206_utils import fetch_data_menu2206_by_fund
-from .portfolio_utils import run_pipeline_from_raw_to_portfolio
+from .portfolio_utils import run_pipeline_from_raw_to_portfolio, get_dfs_by_asset
 from .portfolio_customizer import customize_df_portfolio
 
 class Portfolio:
@@ -26,8 +27,13 @@ class Portfolio:
         return customize_df_portfolio(self.df)
     
     @cached_property
+    def dfs(self):
+        return get_dfs_by_asset(self.raw)
+    
+    @cached_property
     def sector(self):
-        df = self.df
+        df = self.df.copy()
+        df = df[df['평가액'] != '']
         df['업종구분/보증기관'] = df['업종구분/보증기관'].replace('', '미분류')
         return df.groupby('업종구분/보증기관').agg({
             '비중': 'sum',

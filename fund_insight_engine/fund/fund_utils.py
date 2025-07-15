@@ -72,6 +72,8 @@ get_price = partial(get_timeseries_of_field_in_menu8186, fields='수정기준가
 get_nav = partial(get_timeseries_of_field_in_menu8186, fields='순자산')
 get_aum = partial(get_timeseries_of_field_in_menu8186, fields='설정액')
 get_units = partial(get_timeseries_of_field_in_menu8186, fields='설정좌수')
-get_stock_portion = partial(get_timeseries_of_field_in_menu8186, fields='주식순비율')
-get_bond_portion = partial(get_timeseries_of_field_in_menu8186, fields='채권순비율')
-get_portion = partial(get_timeseries_of_field_in_menu8186, fields=['주식순비율', '채권순비율'])
+get_stock_proportion = partial(get_timeseries_of_field_in_menu8186, fields='주식순비율')
+get_bond_proportion = partial(get_timeseries_of_field_in_menu8186, fields='채권순비율')
+
+def get_proportions(fund_code, start_date=None, end_date=None):
+    return get_timeseries_of_field_in_menu8186(fund_code, fields=['주식순비율', '채권순비율'], start_date=start_date, end_date=end_date).rename(columns={'주식순비율': 'Stock', '채권순비율': 'Bond'})

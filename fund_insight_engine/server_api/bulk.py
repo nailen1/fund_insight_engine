@@ -21,15 +21,19 @@ def get_bulk_data_of_fund(fund_code: str, start_date: str=None, end_date: str=No
     prices = map_df_to_data(f.prices)
     returns = map_df_to_data(f.returns)
     cumreturns = map_df_to_data(f.cumreturns)
+    prices_and_proportions = map_df_to_data(f.prices_and_proportions)
     info = map_df_to_data(f.info)
+    info_concise = map_df_to_data(f.info_concise)
     fee = map_df_to_data(f.fee)
     numbers = map_df_to_data(f.numbers)
     period_returns = map_df_to_data(f.period_returns)
     yearly_returns = map_df_to_data(f.yearly_returns)
     monthly_returns = map_df_to_data(f.monthly_returns)
     monthly_relative = [map_df_to_data(df) for df in f.monthly_relative]
+    dfs_relative = {year: map_df_to_data(df) for year, df in f.dfs_relative.items()}
     total_performance = map_df_to_data(f.total_performance)
     portfolio = map_df_to_data(f.portfolio.df)
+    dfs_portfolio = {asset: map_df_to_data(df) for asset, df in f.dfs_portfolio.items()}
     sector = map_df_to_data(f.portfolio.sector)
     index_ref = index_ref if index_ref else start_date
     cumreturns_ref = map_df_to_data(f.pm.get_cumreturns_ref(index_ref=index_ref))
@@ -38,15 +42,19 @@ def get_bulk_data_of_fund(fund_code: str, start_date: str=None, end_date: str=No
         'prices': prices,
         'returns': returns,
         'cumreturns': cumreturns,
+        'prices_and_proportions': prices_and_proportions,
         'info': info,
+        'info_concise': info_concise,
         'fee': fee,
         'numbers': numbers,
         'period_returns': period_returns,
         'yearly_returns': yearly_returns,
         'monthly_returns': monthly_returns,
         'monthly_relative': monthly_relative,
+        'dfs_relative': dfs_relative,
         'total_performance': total_performance,
         'portfolio': portfolio,
+        'dfs_portfolio': dfs_portfolio,
         'sector': sector,
         'cumreturns_ref': cumreturns_ref
     }

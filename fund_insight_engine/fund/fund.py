@@ -7,6 +7,7 @@ from timeseries_performance_calculator import (
     get_table_yearly_returns,
     get_table_monthly_returns,
     get_tables_monthly_relative,
+    get_dfs_tables_year,
 )
 from fund_insight_engine.fund_data_retriever.fund_configuration import (
     get_df_fund_info,
@@ -15,15 +16,17 @@ from fund_insight_engine.fund_data_retriever.fund_configuration import (
 )
 from fund_insight_engine.fund_data_retriever.timeseries.timeseries_utils import get_df_menu8186_by_fund
 from fund_insight_engine.fund_data_retriever.portfolio import Portfolio
+from fund_insight_engine.fund_data_retriever.portfolio.portfolio_utils import get_dfs_by_asset
+from .fund_consts import COLS_FOR_CONSISE_INFO
 from .fund_utils import (
     get_corrected_prices_with_indices,
     get_price,
     get_nav,
     get_aum,
-    get_units,
-    get_stock_portion,
-    get_bond_portion,
-    get_portion,
+    get_units,  
+    get_stock_proportion,
+    get_bond_proportion,
+    get_proportions,
 )
 
 class Fund:
@@ -111,10 +114,18 @@ class Fund:
     @cached_property
     def monthly_relative(self) -> pd.DataFrame:
         return get_tables_monthly_relative(prices=self.corrected_prices)
+    
+    @cached_property
+    def dfs_relative(self) -> pd.DataFrame:
+        return get_dfs_tables_year(prices=self.corrected_prices)
 
     @cached_property
     def info(self) -> pd.DataFrame:
         return get_df_fund_info(fund_code=self.fund_code, date_ref=self.date_ref)
+    
+    @cached_property
+    def info_concise(self) -> pd.DataFrame:
+        return self.info.T[COLS_FOR_CONSISE_INFO].T
     
     @cached_property
     def fee(self) -> pd.DataFrame:
@@ -127,7 +138,11 @@ class Fund:
     @cached_property
     def portfolio(self) -> Portfolio:
         return Portfolio(fund_code=self.fund_code, date_ref=self.date_ref)
-    
+
+    @cached_property
+    def dfs_portfolio(self) -> dict:
+        return get_dfs_by_asset(self.portfolio.raw)
+
     @cached_property
     def raw_portfolio(self) -> pd.DataFrame:
         return self.portfolio.raw
@@ -149,17 +164,21 @@ class Fund:
         return get_units(fund_code=self.fund_code, start_date=self.start_date, end_date=self.end_date)
     
     @cached_property
-    def stock_portion(self) -> pd.DataFrame:
-        return get_stock_portion(fund_code=self.fund_code, start_date=self.start_date, end_date=self.end_date)
+    def stock_proportion(self) -> pd.DataFrame:
+        return get_stock_proportion(fund_code=self.fund_code, start_date=self.start_date, end_date=self.end_date)
     
     @cached_property
-    def bond_portion(self) -> pd.DataFrame:
-        return get_bond_portion(fund_code=self.fund_code, start_date=self.start_date, end_date=self.end_date)
+    def bond_proportion(self) -> pd.DataFrame:
+        return get_bond_proportion(fund_code=self.fund_code, start_date=self.start_date, end_date=self.end_date)
     
     @cached_property
-    def portion(self) -> pd.DataFrame:
-        return get_portion(fund_code=self.fund_code, start_date=self.start_date, end_date=self.end_date)
+    def proportions(self) -> pd.DataFrame:
+        return get_proportions(fund_code=self.fund_code, start_date=self.start_date, end_date=self.end_date)
     
+    @cached_property
+    def prices_and_proportions(self) -> pd.DataFrame:
+        return self.prices.join(self.proportions).bfill()
+
     def get_cumreturns_ref(self, index_ref: str=None) -> pd.DataFrame:
         return self.pm.get_cumreturns_ref(index_ref=index_ref)
     
