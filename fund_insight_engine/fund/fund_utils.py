@@ -35,7 +35,7 @@ def get_corrected_prices(fund_code, start_date=None, end_date=None):
 def get_corrected_prices_with_indices(fund_code, start_date=None, end_date=None, option_indices='default'):
     prices_fund = get_corrected_prices(fund_code, start_date, end_date)
 
-    get_kospi_indices = get_korea_indices
+    get_kospi_indices = get_default_indices
     def get_kosdaq_indices(start_date=None, end_date=None):
         indices = get_default_indices(start_date=start_date, end_date=end_date)
         COLS_ORDERED = ['KOSDAQ Index', 'KOSPI Index', 'KOSPI2 Index', 'SPX Index']
