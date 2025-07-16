@@ -3,12 +3,19 @@ from financial_dataset_preprocessor import force_float
 from fund_insight_engine.fund_data_retriever.portfolio.portfolio_consts import VALID_ASSETS
 from fund_insight_engine.mongodb_retriever.menu2206_retriever.menu2206_utils import get_df_menu2206_snapshot
 
-def preprocess_columns_menu2206_snapshot(df):
-    df = df[df['자산'].isin(VALID_ASSETS)].copy()
+def filter_valid_assets(df):
+    df = df[df['자산'].isin(VALID_ASSETS)]
+    return df
+
+def rename_columns_menu2206_snapshot(df):
     COLS_TO_KEEP = ['펀드코드', '종목', '종목명', '원화 보유정보: 장부가액', '원화 보유정보: 평가액', '원화 보유정보: 수량', '종목정보: 상장구분']
     COLS_RENAMED = ['펀드코드', '종목코드', '종목명', '장부가', '평가액', '수량', '상장구분']
     MAPPING_RENAME = dict(zip(COLS_TO_KEEP, COLS_RENAMED))
     df = df[COLS_TO_KEEP].rename(columns=MAPPING_RENAME)
+    return df
+
+def parse_stock_code(df):
+    df['종목코드'] = df['종목코드'].map(lambda x: x[3:-3])
     return df
 
 def map_listed_or_unlisted(listed_or_unlisted):
@@ -42,7 +49,9 @@ def get_full_holdings(date_ref=None):
     return (
         df
         .copy()
-        .pipe(preprocess_columns_menu2206_snapshot)
+        .pipe(filter_valid_assets)
+        .pipe(rename_columns_menu2206_snapshot)
+        .pipe(parse_stock_code)
         .pipe(parse_listed_or_unlisted)
     )
 

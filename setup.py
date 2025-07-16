@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="fund_insight_engine",
-    version="0.9.3",
+    version="0.9.4",
     packages=find_packages(),
     install_requires=[
         req.strip() for req in open("requirements.txt", encoding="utf-8")
