@@ -53,6 +53,7 @@ def get_full_holdings(date_ref=None):
         .pipe(rename_columns_menu2206_snapshot)
         .pipe(parse_stock_code)
         .pipe(parse_listed_or_unlisted)
+        .reset_index(drop=True)
     )
 
 def load_menu2820_snapshot(date_ref=None):

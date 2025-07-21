@@ -5,3 +5,4 @@ pandas>=2.2.3
 universal_timeseries_transformer>=0.3.2
 timeseries_performance_calculator>=0.2.5
 canonical_transformer>=0.1.4
+string_date_controller>=0.3.0

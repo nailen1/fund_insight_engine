@@ -1,24 +1,54 @@
-from mongodb_controller import client
-import pandas as pd
-from fund_insight_engine.fund_data_retriever.fund_codes import get_fund_codes_aum
+from fund_insight_engine.fund_data_retriever.fund_codes import (
+    get_fund_codes_generals,
+    get_fund_codes_class
+)
+from mongodb_controller import COLLECTION_8186
 
-def fetch_data_for_aum(date_ref=None):
-    fund_codes_for_aum = get_fund_codes_aum(date_ref=date_ref)
-    collection = client['database-rpa']['dataset-menu8186']
+def fetch_firm_aum():
+    fund_codes_general = get_fund_codes_generals()
+    fund_codes_class = get_fund_codes_class()
+
     pipeline = [
-        {'$match': {'펀드코드': {'$in': fund_codes_for_aum}, '일자': '2025-04-30'}},
-        {'$project': {'_id': 0, '펀드코드': 1, '순자산': 1}}
+        {'$match': {'펀드코드': {'$in': fund_codes_general+fund_codes_class}}},
+        {'$group': {
+            '_id': '$일자',
+            '순자산': {'$sum': '$순자산'}
+        }},
+        {'$project': {
+            '_id': 0,
+            '일자': '$_id',
+            '순자산': 1
+        }},
+        {'$sort': {'일자': 1}}
     ]
-    cursor = collection.aggregate(pipeline)
+    cursor = COLLECTION_8186.aggregate(pipeline)
     data = list(cursor)
     return data
 
-def get_df_nav_for_aum(date_ref=None):
-    data = fetch_data_for_aum(date_ref=date_ref)
-    df = pd.DataFrame(data)
-    return df
 
-def get_aum_of_date(date_ref=None):
-    df = get_df_nav_for_aum(date_ref=date_ref)
-    aum_of_date = df['순자산'].sum()
-    return aum_of_date
+def fetch_firm_aum_by_date(date_ref):
+    fund_codes_general = get_fund_codes_generals(date_ref=date_ref)
+    fund_codes_class = get_fund_codes_class(date_ref=date_ref)
+
+    aggregation_pipeline = [
+        {'$match': {'펀드코드': {'$in': fund_codes_general+fund_codes_class}, '일자': date_ref}},
+        {'$group': {
+            '_id': '$일자',
+            '순자산': {'$sum': '$순자산'}
+        }},
+        {'$project': {
+            '_id': 0,
+            '일자': '$_id',
+            '순자산': 1
+        }},
+        {'$sort': {'일자': 1}}
+    ]
+
+    cursor = COLLECTION_8186.aggregate(aggregation_pipeline)
+    data = list(cursor)
+    return data
+
+def fetch_exact_firm_aum():
+    dates_ref = COLLECTION_8186.distinct('일자')
+    data = [fetch_firm_aum_by_date(date_ref)[0] for date_ref in dates_ref]
+    data
