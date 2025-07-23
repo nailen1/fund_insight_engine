@@ -13,6 +13,11 @@ from fund_insight_engine.market_retriever import (
     get_default_indices,
     get_compound_indices,
 )
+from fund_insight_engine.fund_data_retriever.fund_dates import (
+    get_inception_date,
+    get_latest_date_ref_in_configuration,
+    get_default_date_ref,
+)
 from .fund_consts import KEYS_TO_PROJECT_FOR_FUND_PRICE, COL_FOR_FUND_PRICE
 
 def get_corrected_prices(fund_code, start_date=None, end_date=None):

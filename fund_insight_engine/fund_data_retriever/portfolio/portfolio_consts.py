@@ -24,7 +24,5 @@ COLUMNS_FOR_TRS = ["자산", "종목", "종목명", "비중: 자산대비", "원
 COLS_RENAMED_TRS = ["자산", "종목", "종목명", "비중", "수량", "평가손익", "편입일", "잔존일수", "TICKER"]
 MAPPING_COLS_TRS = dict(zip(COLUMNS_FOR_TRS, COLS_RENAMED_TRS))
 
-
-
 VALID_ASSETS = ['국내주식', '국내채권', '국내선물', '국내수익증권', '국내수익증권(ETF)', '외화주식', '외화스왑', '외화선물']
 COLUMNS_FOR_PORTFOLIO_SNAPSHOT = ["펀드코드", "자산", "종목", "종목명", "원화 보유정보: 수량", "원화 보유정보: 장부가액", "원화 보유정보: 평가액", "비중: 자산대비", "비중: 시장비중"]

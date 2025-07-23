@@ -92,4 +92,3 @@ def set_default_benchmarks(benchmark):
     elif benchmark == 'KOSDAQ':
         benchmarks = [benchmark, 'KOSDAQ', 'KOSPI2']
     return benchmarks
-

@@ -1,5 +1,36 @@
 import pandas as pd
 from mongodb_controller import COLLECTION_2160, COLLECTION_8186
+from canonical_transformer.morphisms import map_data_to_df
+from canonical_transformer.functionals import pipe
+
+def create_pipeline_for_proportions_from_2160(fund_code):
+    return [
+        {'$match': {'펀드': fund_code}},
+        {'$project': {'_id': 0, '일자': 1, '편입비중: 주식': 1, '편입비중: 채권': 1, '편입비중: 파생': 1, '편입비중: 단기': 1}},
+        {'$sort': {'일자': 1}}
+    ]
+
+def fetch_data_proportions_from_2160(fund_code):
+    pipeline = create_pipeline_for_proportions_from_2160(fund_code)
+    cursor = COLLECTION_2160.aggregate(pipeline=pipeline)
+    data = list(cursor)
+    return data
+
+def preprocess_df_proportions_from_2160(df):
+    return (
+        df
+        .copy()
+        .rename(columns={'편입비중: 주식': 'stock', '편입비중: 채권': 'bond', '편입비중: 파생': 'derivative', '편입비중: 단기': 'cash_equivalents'})
+        .rename_axis('date')
+    )
+
+def get_df_proportions_from_2160(fund_code):
+    data = fetch_data_proportions_from_2160(fund_code)
+    return pipe(
+        map_data_to_df,
+        preprocess_df_proportions_from_2160,
+    )(data)
+
 
 def fetch_data_stock_portion_2160(fund_code):
     pipeline_2160 = [
