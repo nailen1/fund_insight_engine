@@ -17,6 +17,7 @@ from fund_insight_engine.fund_data_retriever.fund_configuration import (
 from fund_insight_engine.fund_data_retriever.timeseries.timeseries_utils import get_df_menu8186_by_fund
 from fund_insight_engine.fund_data_retriever.portfolio import Portfolio
 from fund_insight_engine.fund_data_retriever.portfolio.portfolio_utils import get_dfs_by_asset
+from fund_insight_engine.fund_data_retriever.fund_dates import get_default_dates
 from .fund_consts import COLS_FOR_CONSISE_INFO
 from .fund_utils import (
     get_corrected_prices_with_indices,
@@ -182,6 +183,10 @@ class Fund:
     def prices_and_proportions(self) -> pd.DataFrame:
         return self.prices.join(self.proportions).bfill()
 
+    @cached_property
+    def default_inputs(self) -> dict:
+        return get_default_dates(self.fund_code)
+
     def get_cumreturns_ref(self, index_ref: str=None) -> pd.DataFrame:
+        index_ref = index_ref if index_ref else self.default_inputs['index_ref']
         return self.pm.get_cumreturns_ref(index_ref=index_ref)
-    

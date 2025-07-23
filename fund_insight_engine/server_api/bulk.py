@@ -35,8 +35,7 @@ def get_bulk_data_of_fund(fund_code: str, start_date: str=None, end_date: str=No
     portfolio = map_df_to_data(f.portfolio.df)
     dfs_portfolio = {asset: map_df_to_data(df) for asset, df in f.dfs_portfolio.items()}
     sector = map_df_to_data(f.portfolio.sector)
-    index_ref = index_ref if index_ref else start_date
-    cumreturns_ref = map_df_to_data(f.pm.get_cumreturns_ref(index_ref=index_ref))
+    cumreturns_ref = map_df_to_data(f.get_cumreturns_ref(index_ref=index_ref))
     
     bulk_data = {
         'prices': prices,
@@ -60,6 +59,7 @@ def get_bulk_data_of_fund(fund_code: str, start_date: str=None, end_date: str=No
     }
 
     if option_save:
+        index_ref = index_ref if index_ref else f.default_inputs['index_ref']
         map_data_to_json(bulk_data, file_folder=FILE_FOLDER['bulk'], file_name=f'json-code{fund_code}-from{start_date.replace("-", "")}-to{end_date.replace("-", "")}-at{index_ref.replace("-", "")}-save{get_today().replace("-", "")}.json')
 
     return bulk_data
