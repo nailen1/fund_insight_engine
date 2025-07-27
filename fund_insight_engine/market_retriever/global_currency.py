@@ -43,3 +43,5 @@ def get_currency(ticker_bbg_curncy, start_date=None, end_date=None):
         .pipe(rename_columns)
     )
     return df
+
+get_timeseries_currency = get_currency

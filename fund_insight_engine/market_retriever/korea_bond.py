@@ -33,3 +33,5 @@ def get_korea_bond(ticker_pseudo, start_date=None, end_date=None):
         .pipe(extend_timeseries_by_all_dates)
     )
     return df
+
+get_timeseries_korea_bond = get_korea_bond

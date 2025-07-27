@@ -15,6 +15,7 @@ def get_index(ticker_bbg_index, start_date=None, end_date=None):
     else:
         raise ValueError(f"Invalid ticker_bbg_index: {ticker_bbg_index}")
 
+get_timeseries_index = get_index
 get_bm = get_index    
 
 def get_indices(start_date=None, end_date=None):

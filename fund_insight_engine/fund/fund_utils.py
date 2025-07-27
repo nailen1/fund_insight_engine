@@ -90,3 +90,12 @@ get_bond_proportion = partial(get_timeseries_of_field_in_menu8186, fields='채�
 
 def get_proportions(fund_code, start_date=None, end_date=None):
     return get_timeseries_of_field_in_menu8186(fund_code, fields=['주식순비율', '채권순비율'], start_date=start_date, end_date=end_date).rename(columns={'주식순비율': 'Stock', '채권순비율': 'Bond'})
+
+
+def correct_prices(prices):
+    return(
+        prices
+        .copy()
+        .pipe(set_index_of_timeseries)
+        .pipe(extend_price_timeseries_to_prev_date)
+    )

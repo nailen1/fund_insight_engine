@@ -65,7 +65,7 @@ class Fund:
         return date_ref if date_ref else self.end_date
 
     def set_benchmark(self, benchmark: str=None) -> str:
-        return self.info_concise.loc['BM1: 기준'][0] if benchmark is None else benchmark
+        return self.info_concise.loc['BM1: 기준'].iloc[0] if benchmark is None else benchmark
 
     @cached_property
     def corrected_prices(self) -> pd.DataFrame:
