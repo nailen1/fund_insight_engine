@@ -1,6 +1,7 @@
 import pandas as pd
 from functools import cached_property
 from universal_timeseries_transformer import PricesMatrix
+from string_date_controller import get_date_n_days_ago
 from timeseries_performance_calculator import (
     get_table_total_performance,
     get_table_period_returns,
@@ -8,6 +9,10 @@ from timeseries_performance_calculator import (
     get_table_monthly_returns,
     get_tables_monthly_relative,
     get_dfs_tables_year,
+)
+from fund_insight_engine.fund_data_retriever.fund_dates import (
+    get_date_i_by_fund,
+    get_date_f_by_fund,
 )
 from fund_insight_engine.fund_data_retriever.fund_configuration import (
     get_df_fund_info,
@@ -20,7 +25,8 @@ from fund_insight_engine.fund_data_retriever.portfolio.portfolio_utils import ge
 from fund_insight_engine.fund_data_retriever.fund_dates import get_default_dates
 from .fund_consts import COLS_FOR_CONSISE_INFO
 from .fund_utils import (
-    get_corrected_prices_with_indices,
+    get_corrected_prices_with_benchmarks,
+    # get_corrected_prices_with_indices,
     get_price,
     get_nav,
     get_aum,
@@ -54,22 +60,38 @@ class Fund:
         cumreturns_ref: Reference-based cumulative returns DataFrame (needs invalidation)
     """
 
-    def __init__(self, fund_code: str, start_date: str=None, end_date: str=None, date_ref: str=None, benchmark: str=None):
+    def __init__(self, fund_code: str, start_date: str=None, end_date: str=None, date_ref: str=None, benchmarks: list[str]=None):
         self.fund_code = fund_code
-        self.start_date = start_date
-        self.end_date = end_date
+        self.start_date = start_date if start_date else self.set_default_start_date()
+        self.end_date = end_date if end_date else self.set_default_end_date()
         self.date_ref = self.set_date_ref(date_ref)        
-        self.benchmark = self.set_benchmark(benchmark)
+        self.benchmarks = self.set_benchmarks(benchmarks)
+
+    def set_default_start_date(self) -> str:
+        return get_date_i_by_fund(self.fund_code)
+    
+    def set_default_end_date(self) -> str:
+        return get_date_f_by_fund(self.fund_code)
 
     def set_date_ref(self, date_ref: str=None) -> str:
         return date_ref if date_ref else self.end_date
-
-    def set_benchmark(self, benchmark: str=None) -> str:
-        return self.info_concise.loc['BM1: 기준'].iloc[0] if benchmark is None else benchmark
+    
+    @cached_property
+    def defalut_benchmark(self) -> str:
+        return self.info.loc['BM1: 기준'].iloc[0]
+    
+    def set_benchmarks(self, benchmarks: list[str]=None) -> list[str]:
+        MAPPING_BENCHMARKS = {
+            'KOSPI': ['KOSPI Index', 'KOSPI2 Index', 'KOSDAQ Index', 'SPX Index'],
+            'KOSDAQ': ['KOSDAQ Index', 'KOSPI Index', 'KOSPI2 Index', 'SPX Index'],
+            'KOSPI200': ['KOSPI2 Index', 'KOSPI Index', 'KOSDAQ Index', 'SPX Index'],
+        }
+        return benchmarks if benchmarks else MAPPING_BENCHMARKS.get(self.defalut_benchmark, MAPPING_BENCHMARKS['KOSPI'])
 
     @cached_property
     def corrected_prices(self) -> pd.DataFrame:
-        return get_corrected_prices_with_indices(self.fund_code, self.start_date, self.end_date, option_indices=self.benchmark)
+        # return get_corrected_prices_with_indices(self.fund_code, self.start_date, self.end_date, option_indices=self.benchmark)
+        return get_corrected_prices_with_benchmarks(self.fund_code, self.benchmarks, self.start_date, self.end_date)
     
     @cached_property
     def prices(self) -> pd.DataFrame:

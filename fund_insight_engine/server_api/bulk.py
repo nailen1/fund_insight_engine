@@ -2,7 +2,7 @@ import pandas as pd
 from fund_insight_engine.fund import Fund
 from canonical_transformer.morphisms import *
 from fund_insight_engine.path_director import FILE_FOLDER
-from string_date_controller import get_today
+from string_date_controller import get_today, get_date_n_days_ago
 
 def get_bulk_data_of_fund(fund_code: str, start_date: str=None, end_date: str=None, index_ref: str=None, option_save: bool=True) -> pd.DataFrame:
     if start_date and end_date:

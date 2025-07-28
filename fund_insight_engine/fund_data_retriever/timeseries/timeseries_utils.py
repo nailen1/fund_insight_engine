@@ -9,7 +9,7 @@ def set_index_of_timeseries(df):
     df = df.set_index('일자').rename_axis('date')
     return df
 
-def extend_price_timeseries_to_prev_date(df):
+def extend_fund_price_timeseries_to_prev_date_of_inception(df):
     date_initial = df.index[0]
     date_prev = get_date_n_days_ago(date_initial, 1)
     df.loc[date_prev, COLUMN_NAME_FOR_FUND_PRICE] = INITIAL_DEFAULT_PRICE 
@@ -27,7 +27,7 @@ def get_df_timeseries_by_fund(fund_code, start_date=None, end_date=None, keys_to
         df = (
             get_df_menu8186_by_fund(fund_code=fund_code, end_date=end_date, keys_to_project=keys_to_project)
             .pipe(set_index_of_timeseries)
-            .pipe(extend_price_timeseries_to_prev_date)
+            .pipe(extend_fund_price_timeseries_to_prev_date_of_inception)
         )
     return df
 
