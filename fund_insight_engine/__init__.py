@@ -7,3 +7,4 @@ from .fund import *
 from .server_api import *
 from .bbg_retriever import *
 from .price_retriever import *
+from .fund_index import *

@@ -5,3 +5,4 @@ from .types import *
 from .trusts import *
 from .aum_fund_filter import *
 from .main_fund_filter import *
+from .historical import *
