@@ -23,6 +23,7 @@ from fund_insight_engine.fund_data_retriever.timeseries.timeseries_utils import 
 from fund_insight_engine.fund_data_retriever.portfolio import Portfolio
 from fund_insight_engine.fund_data_retriever.portfolio.portfolio_utils import get_dfs_by_asset
 from fund_insight_engine.fund_data_retriever.fund_dates import get_default_dates
+from fund_insight_engine.market_retriever.free_returns import get_timeseries_free_returns
 from .fund_consts import COLS_FOR_CONSISE_INFO
 from .fund_utils import (
     get_corrected_prices_with_benchmarks,
@@ -60,12 +61,13 @@ class Fund:
         cumreturns_ref: Reference-based cumulative returns DataFrame (needs invalidation)
     """
 
-    def __init__(self, fund_code: str, start_date: str=None, end_date: str=None, date_ref: str=None, benchmarks: list[str]=None):
+    def __init__(self, fund_code: str, start_date: str=None, end_date: str=None, date_ref: str=None, benchmarks: list[str]=None, free_returns: pd.DataFrame=None):
         self.fund_code = fund_code
         self.start_date = start_date if start_date else self.set_default_start_date()
         self.end_date = end_date if end_date else self.set_default_end_date()
         self.date_ref = self.set_date_ref(date_ref)        
         self.benchmarks = self.set_benchmarks(benchmarks)
+        self.free_returns = self.set_default_free_returns(free_returns)
 
     def set_default_start_date(self) -> str:
         return get_date_i_by_fund(self.fund_code)
@@ -75,6 +77,9 @@ class Fund:
 
     def set_date_ref(self, date_ref: str=None) -> str:
         return date_ref if date_ref else self.end_date
+    
+    def set_default_free_returns(self, free_returns: pd.DataFrame=None) -> pd.DataFrame:
+        return free_returns if free_returns else get_timeseries_free_returns()
     
     @cached_property
     def defalut_benchmark(self) -> str:
@@ -123,7 +128,7 @@ class Fund:
 
     @cached_property
     def total_performance(self) -> pd.DataFrame:
-        return get_table_total_performance(prices=self.corrected_prices)
+        return get_table_total_performance(prices=self.corrected_prices, free_returns=self.free_returns)
     
     @cached_property
     def period_returns(self) -> pd.DataFrame:

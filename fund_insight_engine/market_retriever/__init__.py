@@ -7,3 +7,4 @@ from .universal_index import *
 from .asia_index import *
 from .etc1_index import *
 from .compound import *
+from .free_returns import *
