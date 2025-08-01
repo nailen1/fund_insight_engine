@@ -67,13 +67,43 @@ def get_data_historical_fund_codes(option_save: bool = True)->dict[str, list[str
         'generals': get_historical_fund_codes_generals(),
         'nonclassified': get_historical_fund_codes_nonclassified(),
         'aum': get_historical_fund_codes_aum(),
+        'aum_division_01': get_historical_fund_codes_aum_division_01(),
+        'aum_division_02': get_historical_fund_codes_aum_division_02(),
     }
     if option_save:
-        map_data_to_json(data, file_folder=FILE_FOLDER['fund_index'], file_name=f'json-historical_fund_codes-save{get_today().replace("-", "")}.json')
+        map_data_to_json(data, file_folder=FILE_FOLDER['fund_code'], file_name=f'json-historical_fund_codes-save{get_today().replace("-", "")}.json')
     return data
 
-def load_data_historical_fund_codes(file_folder: str = FILE_FOLDER['fund_index'], regex='json-historical_fund_codes')->dict[str, list[str]]:
+def load_data_historical_fund_codes(file_folder: str = FILE_FOLDER['fund_code'])->dict[str, list[str]]:
+    regex = f'json-historical_fund_codes-.*save{get_today().replace("-", "")}'
     file_names = scan_files_including_regex(file_folder=file_folder, regex=regex)
     file_name = file_names[-1]
     data = map_json_to_data(file_folder=file_folder, file_name=file_name)
     return data
+
+def map_label_to_historical_fund_codes_in_local(label: str):
+    data = map_json_to_data(file_folder=FILE_FOLDER['fund_code'], file_name=f'json-historical_fund_codes-save{get_today().replace("-", "")}.json')
+    return data[label]
+
+def map_label_to_historical_fund_codes(label: str):
+    data = get_data_historical_fund_codes()
+    return data[label]
+
+def get_historical_fund_codes_aum_division_01():
+    dates = get_all_existent_dates_in_collection(COLLECTION_2110, 'date_ref')
+    sets = []
+    for date in dates:
+        fund_codes_aum_division_01 = get_fund_codes_aum_division_01(date_ref=date)
+        sets = [*sets, *fund_codes_aum_division_01]
+    sets = set(sets)
+    return sorted(list(sets))
+
+def get_historical_fund_codes_aum_division_02():
+    dates = get_all_existent_dates_in_collection(COLLECTION_2110, 'date_ref')
+    sets = []
+    for date in dates:
+        fund_codes_aum_division_02 = get_fund_codes_aum_division_02(date_ref=date)
+        sets = [*sets, *fund_codes_aum_division_02]
+    sets = set(sets)
+    return sorted(list(sets))
+
