@@ -92,3 +92,14 @@ def set_default_benchmarks(benchmark):
     elif benchmark == 'KOSDAQ':
         benchmarks = [benchmark, 'KOSDAQ', 'KOSPI2']
     return benchmarks
+
+def concatenate_benchmark_names(benchmark_names):
+    benchmark_names = [benchmark_name.replace(' ', '_') for benchmark_name in benchmark_names]
+    return '&'.join(benchmark_names)
+
+invese_parse_benchmark_names = concatenate_benchmark_names
+
+def parse_benchmark_names(benchmark_names_with_ampersand):
+    benchmark_names = benchmark_names_with_ampersand.split('&')
+    benchmark_names = [benchmark_name.replace('_', ' ') for benchmark_name in benchmark_names]
+    return benchmark_names

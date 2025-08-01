@@ -1,6 +1,7 @@
 from .fund_codes import *
 from .fund_price import *
 from .fund_portion import *
+from .fund_index import *
 from .firm_aum import *
 from .fund_info import *
 from .fund_mappings import *

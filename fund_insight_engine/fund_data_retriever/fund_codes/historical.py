@@ -36,6 +36,7 @@ def get_historical_fund_codes(fund_codes_kernel: Callable):
     return sorted(list(sets))
 
 get_historical_fund_codes_all = partial(get_historical_fund_codes, get_fund_codes_all)
+get_historical_fund_codes_total = get_historical_fund_codes_all
 get_historical_fund_codes_main = partial(get_historical_fund_codes, get_fund_codes_main)
 get_historical_fund_codes_division_01 = partial(get_historical_fund_codes, get_fund_codes_division_01_main)
 get_historical_fund_codes_division_02 = partial(get_historical_fund_codes, get_fund_codes_division_02_main)

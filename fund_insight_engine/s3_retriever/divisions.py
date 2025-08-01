@@ -1,7 +1,8 @@
-from financial_dataset_preprocessor import get_preprocessed_menu8186_snapshot, get_fund_codes_main, filter_df_by_fund_codes_main
+from typing import Dict, Optional
+from functools import partial
+from financial_dataset_preprocessor import get_preprocessed_menu8186_snapshot, filter_df_by_fund_codes_main
 from .general_utils import get_mapping_fund_names_filtered_by_fund_codes
 from .consts import LIFE_MANAGERS_OF_DIVISION_01, LIFE_MANAGERS_OF_DIVISION_02
-from typing import Dict, Optional
 
 def get_fund_codes_by_managers(managers, date_ref=None, option_main=True):
     df = get_preprocessed_menu8186_snapshot(date_ref=date_ref)
@@ -12,21 +13,10 @@ def get_fund_codes_by_managers(managers, date_ref=None, option_main=True):
     fund_codes = list(df.index)
     return fund_codes
 
-def get_fund_codes_of_division_01(date_ref=None, option_main=True):
-    return get_fund_codes_by_managers(managers=LIFE_MANAGERS_OF_DIVISION_01, date_ref=date_ref, option_main=option_main)
-
-def get_fund_codes_of_division_02(date_ref=None, option_main=True):
-    return get_fund_codes_by_managers(managers=LIFE_MANAGERS_OF_DIVISION_02, date_ref=date_ref, option_main=option_main)
-
-def get_mapping_fund_names_of_division_01(date_ref=None, option_main=True):
-    fund_codes = get_fund_codes_of_division_01(date_ref=date_ref, option_main=option_main)
-    mapping = get_mapping_fund_names_filtered_by_fund_codes(fund_codes=fund_codes, date_ref=date_ref)
-    return mapping
-
-def get_mapping_fund_names_of_division_02(date_ref=None, option_main=True):
-    fund_codes = get_fund_codes_of_division_02(date_ref=date_ref, option_main=option_main)
-    mapping = get_mapping_fund_names_filtered_by_fund_codes(fund_codes=fund_codes, date_ref=date_ref)
-    return mapping
+get_fund_codes_of_division_01 = partial(get_fund_codes_by_managers, LIFE_MANAGERS_OF_DIVISION_01)
+get_fund_codes_of_division_02 = partial(get_fund_codes_by_managers, LIFE_MANAGERS_OF_DIVISION_02)
+get_mapping_fund_names_of_division_01 = partial(get_mapping_fund_names_filtered_by_fund_codes, fund_codes_kernel=get_fund_codes_of_division_01)
+get_mapping_fund_names_of_division_02 = partial(get_mapping_fund_names_filtered_by_fund_codes, fund_codes_kernel=get_fund_codes_of_division_02)
 
 def get_mapping_by_division(keyword_division: str, date_ref: Optional[str] = None, option_main: bool = True) -> Dict[str, str]:
     return {

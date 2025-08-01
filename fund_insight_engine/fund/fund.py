@@ -61,12 +61,12 @@ class Fund:
         cumreturns_ref: Reference-based cumulative returns DataFrame (needs invalidation)
     """
 
-    def __init__(self, fund_code: str, start_date: str=None, end_date: str=None, date_ref: str=None, benchmarks: list[str]=None, free_returns: pd.DataFrame=None):
+    def __init__(self, fund_code: str, start_date: str=None, end_date: str=None, date_ref: str=None, benchmark_names: list[str]=None, free_returns: pd.DataFrame=None):
         self.fund_code = fund_code
         self.start_date = start_date if start_date else self.set_default_start_date()
         self.end_date = end_date if end_date else self.set_default_end_date()
         self.date_ref = self.set_date_ref(date_ref)        
-        self.benchmarks = self.set_benchmarks(benchmarks)
+        self.benchmarks = self.set_benchmarks(benchmark_names)
         self.free_returns = self.set_default_free_returns(free_returns)
 
     def set_default_start_date(self) -> str:
@@ -85,17 +85,16 @@ class Fund:
     def defalut_benchmark(self) -> str:
         return self.info.loc['BM1: 기준'].iloc[0]
     
-    def set_benchmarks(self, benchmarks: list[str]=None) -> list[str]:
-        MAPPING_BENCHMARKS = {
+    def set_benchmarks(self, benchmark_names: list[str]=None) -> list[str]:
+        MAPPING_BENCHMARK_NAMES = {
             'KOSPI': ['KOSPI Index', 'KOSPI2 Index', 'KOSDAQ Index', 'SPX Index'],
             'KOSDAQ': ['KOSDAQ Index', 'KOSPI Index', 'KOSPI2 Index', 'SPX Index'],
             'KOSPI200': ['KOSPI2 Index', 'KOSPI Index', 'KOSDAQ Index', 'SPX Index'],
         }
-        return benchmarks if benchmarks else MAPPING_BENCHMARKS.get(self.defalut_benchmark, MAPPING_BENCHMARKS['KOSPI'])
+        return benchmark_names if benchmark_names else MAPPING_BENCHMARK_NAMES.get(self.defalut_benchmark, MAPPING_BENCHMARK_NAMES['KOSPI'])
 
     @cached_property
     def corrected_prices(self) -> pd.DataFrame:
-        # return get_corrected_prices_with_indices(self.fund_code, self.start_date, self.end_date, option_indices=self.benchmark)
         return get_corrected_prices_with_benchmarks(self.fund_code, self.benchmarks, self.start_date, self.end_date)
     
     @cached_property

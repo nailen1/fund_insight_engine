@@ -4,9 +4,9 @@ import pandas as pd
 from string_date_controller import get_today, get_date_n_days_ago
 from shining_pebbles import scan_files_including_regex
 from canonical_transformer.morphisms import map_df_to_csv, map_csv_to_df
-from fund_insight_engine.fund_data_retriever.fund_codes import get_fund_codes_all
+from fund_insight_engine.fund_data_retriever.fund_codes import get_fund_codes_total
 from fund_insight_engine.fund_data_retriever.fund_codes.historical import (
-    get_historical_fund_codes_all,
+    get_historical_fund_codes_total,
     get_historical_fund_codes_main, 
     get_historical_fund_codes_division_01, 
     get_historical_fund_codes_division_02, 
@@ -21,14 +21,9 @@ from fund_insight_engine.fund_data_retriever.fund_codes.historical import (
     get_historical_fund_codes_nonclassified,
 )
 from fund_insight_engine.path_director import FILE_FOLDER
-from .basis import get_df_fund_index
+from fund_insight_engine.fund_data_retriever.basis import get_df_fund_data
 
-
-def get_fund_index_total(option_save: bool = True)->pd.DataFrame:
-    df_fund_index_total = get_df_fund_index(fund_codes_kernel=get_historical_fund_codes_all)
-    if option_save:
-        map_df_to_csv(df_fund_index_total, file_folder=FILE_FOLDER['fund_index'], file_name=f'dataset-fund_index_total-save{get_today().replace("-", "")}.csv')
-    return df_fund_index_total
+get_df_fund_index = partial(get_df_fund_data, key='수정기준가')
 
 def correct_fund_index(df_fund_index):
     df = df_fund_index.copy()
@@ -41,37 +36,44 @@ def correct_fund_index(df_fund_index):
             df.loc[get_date_n_days_ago(first_valid_idx, 1), col] = INITIAL_PRICE
     return df
 
+def get_fund_index_total(option_save: bool = True)->pd.DataFrame:
+    df_fund_index_total = get_df_fund_index(fund_codes_kernel=get_fund_codes_total)
+    df_fund_index_total = correct_fund_index(df_fund_index_total)
+    if option_save:
+        map_df_to_csv(df_fund_index_total, file_folder=FILE_FOLDER['fund_index'], file_name=f'dataset-fund_index_total-save{get_today().replace("-", "")}.csv')
+    return df_fund_index_total
+
 def load_fund_index_total(file_folder: str = FILE_FOLDER['fund_index'], regex='dataset-fund_index_total-')->pd.DataFrame:
     file_names = scan_files_including_regex(file_folder=file_folder, regex=regex)
     file_name = file_names[-1]
     df = map_csv_to_df(file_folder=file_folder, file_name=file_name)
     return df
 
-def map_label_to_historical_fund_codes_kernel(label: str):
+def map_label_to_historical_fund_codes(label: str):
     return {
-        'all': get_historical_fund_codes_all,
-        'main': get_historical_fund_codes_main,
-        'division_01': get_historical_fund_codes_division_01,
-        'division_02': get_historical_fund_codes_division_02,
-        'equity': get_historical_fund_codes_equity,
-        'equity_mixed': get_historical_fund_codes_equity_mixed,
-        'bond_mixed': get_historical_fund_codes_bond_mixed,
-        'multi_asset': get_historical_fund_codes_multi_asset,
-        'variable': get_historical_fund_codes_variable,
-        'mothers': get_historical_fund_codes_mothers,
-        'class': get_historical_fund_codes_class,
-        'generals': get_historical_fund_codes_generals,
-        'nonclassified': get_historical_fund_codes_nonclassified,
+        'total': get_historical_fund_codes_total(),
+        'main': get_historical_fund_codes_main(),
+        'division_01': get_historical_fund_codes_division_01(),
+        'division_02': get_historical_fund_codes_division_02(),
+        'equity': get_historical_fund_codes_equity(),
+        'equity_mixed': get_historical_fund_codes_equity_mixed(),
+        'bond_mixed': get_historical_fund_codes_bond_mixed(),
+        'multi_asset': get_historical_fund_codes_multi_asset(),
+        'variable': get_historical_fund_codes_variable(),
+        'mothers': get_historical_fund_codes_mothers(),
+        'class': get_historical_fund_codes_class(),
+        'generals': get_historical_fund_codes_generals(),
+        'nonclassified': get_historical_fund_codes_nonclassified(),
     }[label]
-
+# 
 def get_fund_index_by_label(label: str, option_save: bool = True)->pd.DataFrame:
     df_fund_index_total = load_fund_index_total()
-    df_fund_index_by_label = df_fund_index_total[map_label_to_historical_fund_codes_kernel(label)]
+    df_fund_index_by_label = df_fund_index_total[map_label_to_historical_fund_codes(label)]
     if option_save:
         map_df_to_csv(df_fund_index_by_label, file_folder=FILE_FOLDER['fund_index'], file_name=f'dataset-fund_index_{label}-save{get_today().replace("-", "")}.csv')
     return df_fund_index_by_label
 
-get_fund_index_all = partial(get_fund_index_by_label, label='all')
+# get_fund_index_total = partial(get_fund_index_by_label, label='total')
 get_fund_index_main = partial(get_fund_index_by_label, label='main')
 get_fund_index_division_01 = partial(get_fund_index_by_label, label='division_01')
 get_fund_index_division_02 = partial(get_fund_index_by_label, label='division_02')
