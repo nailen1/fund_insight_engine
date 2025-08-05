@@ -43,7 +43,7 @@ def get_data_fund_codes_aum_by_trust(date_ref=None, option_save: bool = True):
     dct = {}
     for trust_name in trust_names:
         fund_codes =get_fund_codes_aum_by_trust(trust_name=trust_name, date_ref=date_ref)
-        dct[f'{trust_name}_aum'] = fund_codes
+        dct[trust_name] = fund_codes
     data = {'date_ref': date_ref, 'data': dct}
     if option_save:
         map_data_to_json(data, file_folder=FILE_FOLDER['fund_code'], file_name=f'json-fund_codes_by_trust-at{date_ref.replace("-", "")}-save{get_today().replace("-", "")}.json')
@@ -85,7 +85,7 @@ def get_data_fund_codes_main_by_trust(date_ref=None, option_save: bool = True):
     dct = {}
     for trust_name in trust_names:
         fund_codes =get_fund_codes_main_by_trust(trust_name=trust_name, date_ref=date_ref)
-        dct[f'{trust_name}_main'] = fund_codes
+        dct[trust_name] = fund_codes
     data = {'date_ref': date_ref, 'data': dct}
     if option_save:
         map_data_to_json(data, file_folder=FILE_FOLDER['fund_code'], file_name=f'json-fund_codes_by_trust-at{date_ref.replace("-", "")}-save{get_today().replace("-", "")}.json')

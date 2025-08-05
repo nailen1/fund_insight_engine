@@ -126,7 +126,7 @@ def get_data_fund_codes_aum_by_type(date_ref=None, option_save: bool = True):
     dct = {}
     for type_name in type_names:
         fund_codes =get_fund_codes_aum_by_type(type_name=type_name, date_ref=date_ref)
-        dct[f'{type_name}_aum'] = fund_codes
+        dct[type_name] = fund_codes
     data = {'date_ref': date_ref, 'data': dct}
     if option_save:
         map_data_to_json(data, file_folder=FILE_FOLDER['fund_code'], file_name=f'json-fund_codes_by_type-at{date_ref.replace("-", "")}-save{get_today().replace("-", "")}.json')
@@ -148,7 +148,7 @@ def get_data_fund_codes_by_type(date_ref=None, option_save: bool = True):
     dct = {}
     for type_name in type_names:
         fund_codes =get_fund_codes_by_type(type_name=type_name, date_ref=date_ref)
-        dct[f'{type_name}'] = fund_codes
+        dct[type_name] = fund_codes
     data = {'date_ref': date_ref, 'data': dct}
     if option_save:
         map_data_to_json(data, file_folder=FILE_FOLDER['fund_code'], file_name=f'json-fund_codes_by_type-at{date_ref.replace("-", "")}-save{get_today().replace("-", "")}.json')
@@ -170,7 +170,7 @@ def get_data_fund_codes_main_by_type(date_ref=None, option_save: bool = True):
     dct = {}
     for type_name in type_names:
         fund_codes =get_fund_codes_main_by_type(type_name=type_name, date_ref=date_ref)
-        dct[f'{type_name}_main'] = fund_codes
+        dct[type_name] = fund_codes
     data = {'date_ref': date_ref, 'data': dct}
     if option_save:
         map_data_to_json(data, file_folder=FILE_FOLDER['fund_code'], file_name=f'json-fund_codes_by_type-at{date_ref.replace("-", "")}-save{get_today().replace("-", "")}.json')

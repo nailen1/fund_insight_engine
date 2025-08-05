@@ -33,6 +33,7 @@ from fund_insight_engine.fund_data_retriever.fund_codes import (
     get_data_fund_codes_by_aum_filter,
     get_data_fund_codes_by_main_filter,
     get_data_fund_codes_by_class_category,
+    get_fund_codes_all,
 )
 
 # def get_data_fund_codes_snapshot(date_ref=None, option_save: bool = True):
@@ -62,6 +63,7 @@ from fund_insight_engine.fund_data_retriever.fund_codes import (
 
 def get_data_fund_codes_snapshot(date_ref=None, option_save: bool = True):
     date_ref = date_ref or get_latest_date_ref_in_2110()
+    fund_codes_total = get_fund_codes_all(date_ref=date_ref)
     data_by_type = get_data_fund_codes_by_type(date_ref=date_ref, option_save=False)['data']
     data_by_type_aum = get_data_fund_codes_aum_by_type(date_ref=date_ref, option_save=False)['data']
     data_by_type_main = get_data_fund_codes_main_by_type(date_ref=date_ref, option_save=False)['data']
@@ -77,18 +79,19 @@ def get_data_fund_codes_snapshot(date_ref=None, option_save: bool = True):
 
     data_snapshot = {
         'date_ref': date_ref,
-        'by_type': data_by_type,
-        'by_type_aum': data_by_type_aum,
-        'by_type_main': data_by_type_main,
-        'by_division': data_by_division,
-        'by_division_aum': data_by_division_aum,
-        'by_division_main': data_by_division_main,
-        'by_trust': data_by_trust,
-        'by_trust_aum': data_by_trust_aum,
-        'by_trust_main': data_by_trust_main,
-        'by_class': data_by_class,
-        'by_aum_filter': data_by_aum_filter,
-        'by_main_filter': data_by_main_filter,
+        'total': fund_codes_total,
+        'type: total': data_by_type,
+        'type: aum': data_by_type_aum,
+        'type: main': data_by_type_main,
+        'division: total': data_by_division,
+        'division: aum': data_by_division_aum,
+        'division: main': data_by_division_main,
+        'trust: total': data_by_trust,
+        'trust: aum': data_by_trust_aum,
+        'trust: main': data_by_trust_main,
+        'class': data_by_class,
+        'aum': data_by_aum_filter,
+        'main': data_by_main_filter,
     }
     if option_save:
         map_data_to_json(data_snapshot, file_folder=FILE_FOLDER['fund_code'], file_name=f'json-fund_codes_snapshot-at{date_ref.replace("-", "")}-save{get_today().replace("-", "")}.json')

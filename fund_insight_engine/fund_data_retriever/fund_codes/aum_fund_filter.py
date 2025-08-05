@@ -33,7 +33,7 @@ def get_fund_codes_by_aum_filter(keyword: str, date_ref: str=None):
     condition_nonaum = ~condition_aum
     mapping_keyword = {
         'aum': condition_aum,
-        'nonaum': condition_nonaum,
+        'non_aum': condition_nonaum,
     }
     try:
         lst = df[mapping_keyword[keyword]]['펀드코드'].tolist()
@@ -43,7 +43,7 @@ def get_fund_codes_by_aum_filter(keyword: str, date_ref: str=None):
 
 def get_data_fund_codes_by_aum_filter(date_ref=None, option_save: bool = True):
     date_ref = date_ref or get_latest_date_ref_in_2110()
-    keywords = ['aum', 'nonaum']
+    keywords = ['aum', 'non_aum']
     dct = {}
     for keyword in keywords:
         fund_codes =get_fund_codes_by_aum_filter(keyword=keyword, date_ref=date_ref)

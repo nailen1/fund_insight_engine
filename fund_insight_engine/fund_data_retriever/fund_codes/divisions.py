@@ -88,8 +88,8 @@ def get_fund_codes_aum_by_division(division_name: str, date_ref: str=None):
     condition_division_02 = (df['매니저'].isin(MANAGER_NAMES_DIVISION_02)) & (df['클래스구분'].isin(['일반', '클래스펀드']))
 
     mapping_division = {
-        '운용1본부_aum': condition_division_01,
-        '운용2본부_aum': condition_division_02,
+        '운용1본부': condition_division_01,
+        '운용2본부': condition_division_02,
     }
 
     try:
@@ -101,7 +101,7 @@ def get_fund_codes_aum_by_division(division_name: str, date_ref: str=None):
 
 def get_data_fund_codes_aum_by_division(date_ref=None, option_save: bool = True):
     date_ref = date_ref or get_latest_date_ref_in_2110()
-    division_names = ['운용1본부_aum', '운용2본부_aum']
+    division_names = ['운용1본부', '운용2본부']
     dct = {}
     for division_name in division_names:
         fund_codes =get_fund_codes_aum_by_division(division_name=division_name, date_ref=date_ref)
@@ -121,8 +121,8 @@ def get_fund_codes_main_by_division(division_name: str, date_ref: str=None):
     condition_division_02 = (df['매니저'].isin(MANAGER_NAMES_DIVISION_02)) & (df['클래스구분'].isin(['운용펀드', '-']))
 
     mapping_division = {
-        '운용1본부_main': condition_division_01,
-        '운용2본부_main': condition_division_02,
+        '운용1본부': condition_division_01,
+        '운용2본부': condition_division_02,
     }
 
     try:
@@ -133,7 +133,7 @@ def get_fund_codes_main_by_division(division_name: str, date_ref: str=None):
 
 def get_data_fund_codes_main_by_division(date_ref=None, option_save: bool = True):
     date_ref = date_ref or get_latest_date_ref_in_2110()
-    division_names = ['운용1본부_main', '운용2본부_main']
+    division_names = ['운용1본부', '운용2본부']
     dct = {}
     for division_name in division_names:
         fund_codes =get_fund_codes_aum_by_division(division_name=division_name, date_ref=date_ref)
