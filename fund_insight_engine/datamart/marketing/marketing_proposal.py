@@ -25,6 +25,14 @@ class MarketingProposal:
     
     def set_benchmark_names(self, benchmark_names):
         return benchmark_names if benchmark_names else self.benchmark_names
+    
+    @cached_property
+    def cumreturns(self):
+        return self.f.cumreturns
+    
+    @cached_property
+    def proportions(self):
+        return self.f.proportions
 
     @cached_property
     def total_performance(self):
@@ -37,6 +45,14 @@ class MarketingProposal:
     @cached_property
     def dfs_monthly_relative(self):
         return {year: style_monthly_relative(df, self.option_round) for year, df in self.f.dfs_relative.items()}
+
+    @cached_property
+    def data_cumreturns(self):
+        return map_df_to_data(self.cumreturns)
+    
+    @cached_property
+    def data_proportions(self):
+        return map_df_to_data(self.proportions)
 
     @cached_property
     def data_total_performance(self):
@@ -75,6 +91,8 @@ class MarketingProposal:
             'start_date': self.start_date,
             'end_date': self.end_date,
             'nav': self.nav,
+            'cumreturns': self.data_cumreturns,
+            'proportions': self.data_proportions,
             'total_performance': self.data_total_performance,
             'period_returns': self.data_period_returns,
             'monthly_relative': self.data_monthly_relative,
