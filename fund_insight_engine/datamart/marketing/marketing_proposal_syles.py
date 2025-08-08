@@ -40,7 +40,7 @@ def style_total_performance(df_total_performance, metrics=None, option_round=2):
     
     def correct_winning_ratio(df):
         winning_ratio_col = df.columns.get_loc('Winning Ratio')
-        df.iloc[-1, winning_ratio_col] = 100 - df.iloc[0, winning_ratio_col]
+        df.iloc[-1, winning_ratio_col] = (1 - df.iloc[0, winning_ratio_col]) * 100
         return df
     
     def fillna_beta(df):
