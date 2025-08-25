@@ -31,7 +31,8 @@ def get_bulk_data_of_fund(fund_code: str, start_date: str=None, end_date: str=No
     monthly_returns = map_df_to_data(f.monthly_returns)
     monthly_relative = [map_df_to_data(df) for df in f.monthly_relative]
     dfs_relative = {year: map_df_to_data(df) for year, df in f.dfs_relative.items()}
-    total_performance = map_df_to_data(f.total_performance)
+    TEMP_COLS_TO_KEEP = ['annualized_return_cagr', 'annualized_return_days', 'annualized_volatility', 'beta', 'maxdrawdown', 'sharpe_ratio', 'winning_ratio']
+    total_performance = map_df_to_data(f.total_performance[TEMP_COLS_TO_KEEP])
     portfolio = map_df_to_data(f.portfolio.df)
     dfs_portfolio = {asset: map_df_to_data(df) for asset, df in f.dfs_portfolio.items()}
     sector = map_df_to_data(f.portfolio.sector)

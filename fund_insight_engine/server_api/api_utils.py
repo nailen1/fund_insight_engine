@@ -88,9 +88,9 @@ def transform_to_date_ref_text(date_ref):
 
 def set_default_benchmarks(benchmark):
     if benchmark == 'KOSPI':
-        benchmarks = [benchmark, 'KOSPI2', 'KOSDAQ']
+        benchmarks = [benchmark, 'KOSPI200', 'KOSDAQ']
     elif benchmark == 'KOSDAQ':
-        benchmarks = [benchmark, 'KOSDAQ', 'KOSPI2']
+        benchmarks = [benchmark, 'KOSPI', 'KOSPI200']
     return benchmarks
 
 def concatenate_benchmark_names(benchmark_names):

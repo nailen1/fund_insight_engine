@@ -36,7 +36,8 @@ class MarketingProposal:
 
     @cached_property
     def total_performance(self):
-        return style_total_performance(self.f.total_performance, self.metrics, self.option_round)
+        TEMP_COLS_TO_KEEP = ['annualized_return_cagr', 'annualized_return_days', 'annualized_volatility', 'beta', 'maxdrawdown', 'sharpe_ratio', 'winning_ratio']
+        return style_total_performance(self.f.total_performance[TEMP_COLS_TO_KEEP], self.metrics, self.option_round, cols_to_keep=TEMP_COLS_TO_KEEP)
     
     @cached_property
     def period_returns(self):
